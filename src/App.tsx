@@ -16,11 +16,54 @@ import DashbordDoctor from "./app/pages/doctor/DashbordDoctor"
 import LayoutDoctor from "./app/pages/doctor/LayoutDoctor"
 import PatientVisit from "./app/pages/doctor/PatientVisit"
 import Schedule from "./app/pages/doctor/Schedule"
-import SidebarPatient from "./components/SidebarPatient"
 import LayoutPatient from "./app/pages/patients/LayoutPatient"
 import DoctorsPatient from "./app/pages/patients/DoctorsPatient"
+import SchedulePatient from "./app/pages/patients/Schedule"
+import { useEffect } from "react"
+import { supabase } from "./supabaseClient"
 
 function App() {
+
+  
+  //   useEffect(() => {
+  //   const handleVisibility = () => {
+  //     if (document.visibilityState === "visible") {
+  //       window.location.reload();
+  //     }
+  //   };
+
+  //   document.addEventListener("visibilitychange", handleVisibility);
+
+  //   return () => {
+  //     document.removeEventListener("visibilitychange", handleVisibility);
+  //   };
+  // }, []);
+
+ 
+
+  useEffect(() => {
+  let hiddenAt = 0;
+
+  const handleVisibility = () => {
+    if (document.visibilityState === "hidden") {
+      hiddenAt = Date.now();
+    } else {
+      const elapsed = Date.now() - hiddenAt;
+
+      if (elapsed > 60 * 1000) {
+        window.location.reload();
+      }
+    }
+  };
+
+  document.addEventListener("visibilitychange", handleVisibility);
+
+  return () => {
+    document.removeEventListener("visibilitychange", handleVisibility);
+  };
+}, []);
+
+
 
   return (
     <BrowserRouter>
@@ -31,7 +74,7 @@ function App() {
       <Route element={<ProtectedRoute/>}>
       <Route element={<Layout/>}>
       {/* admin */}
-          <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/patients" element={<Patients />} />
         <Route path="/patients/:id" element={<PatientID />} />
         <Route path="/doctors" element={<Doctors />} />
@@ -46,7 +89,7 @@ function App() {
 
       <Route path="/doctor" element={<DashbordDoctor/>}/>
       <Route path="/visits" element={<PatientVisit/>}/>
-      <Route path="/schedule" element={<Schedule/>}/>
+      <Route path="/scheduleDoctor" element={<Schedule/>}/>
 </Route>
       </Route>
       
@@ -56,6 +99,7 @@ function App() {
 
       <Route path="/home" element={<Home/>}/>
       <Route path="/doctorsPatient" element={<DoctorsPatient/>}/>
+      <Route path="/schedule"element={<SchedulePatient/>}/>
 </Route>
       </Route>
 

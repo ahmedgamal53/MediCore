@@ -54,6 +54,7 @@ export default function Signin() {
             type="email"
             id="email"
             value={email}
+            placeholder="email"
             onChange={(e) => setEmail(e.target.value)}
             required
             className="mt-1 px-2 py-2 outline-none block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -65,6 +66,7 @@ export default function Signin() {
           </label>
           <input
             type="password"
+            placeholder="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

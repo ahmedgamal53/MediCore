@@ -155,6 +155,7 @@ const handleEditPatient = async (e:FormEvent) => {
 
   try {
 
+
     const { error: patientError } = await supabase
       .from("patients")
       .update({
@@ -488,7 +489,7 @@ const filterPatients = patients?.filter((patient) => {
 
   <tbody >
 
-   {filterPatients?.length > 0?(
+   {filterPatients?.length > 0 &&patients ?(
   filterPatients?.map((patient ) => (
       <tr
         key={patient.id}

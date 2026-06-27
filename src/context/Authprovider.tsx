@@ -48,17 +48,18 @@ const Authprovider = ({children}:PropsWithChildren) => {
         }
         fetchsession()
         const {data:{ subscription }}= supabase.auth.onAuthStateChange(
-            async (_event,session)=>{
+             (_event,session)=>{
                    if (!initialized.current) return;
                 setsession(session)
 
-    if (session?.user) {
-          setsession(session);
+    setTimeout(async () => {
+        if (session?.user) {
           const data = await fetchProfile(session.user.id);
           setprofile(data);
         } else {
           setprofile(null);
         }
+      }, 0);
             }
         )
 
