@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  {  useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { useDoctors } from '../../../api/Doctors';
 import { supabase } from '../../../supabaseClient';
@@ -62,7 +62,8 @@ const handelConfirm= async()=>{
         doctor_id:selectedDoctor?.id,
         appointment_date:appointmentDate,
         appointment_time:appointmentTime,
-        type:appointment
+        type:appointment,
+        status:'Scheduled'
         
     })
        if(error ){
@@ -86,6 +87,17 @@ const handelConfirm= async()=>{
             
   }
 }
+
+
+const formatTime = (time: string) => {
+  const [hour, minute] = time.split(":").map(Number);
+
+  const displayHour =
+    hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+
+    
+  return `${displayHour}:${minute.toString().padStart(2, "0")}`;
+};
 
   if(loading)
         return(
@@ -137,7 +149,7 @@ const handelConfirm= async()=>{
       className="bg-white/30 backdrop-blur-md border border-white/30 rounded-2xl p-6 flex flex-col items-center text-center"
     >
       {/* Avatar */}
-      <div className="w-20 h-20 rounded-full border border-white/30  bg-[#00C0C1] flex items-center justify-center text-gray-900 text-2xl font-semibold">
+                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-semibold text-lg">
         {doctor?.profiles?.full_name
           ?.split(" ") //Array
           .map((n) => n[0])
@@ -256,10 +268,14 @@ const handelConfirm= async()=>{
 
   <div className="grid grid-cols-4 gap-3">
     {[
-      "09:00","09:30","10:00","10:30",
-      "11:00","11:30","12:00","12:30",
-      "1:00","1:30","2:00","2:30",
-      "3:00","3:30","4:00","4:30",
+  "09:00", "09:30",
+  "10:00", "10:30",
+  "11:00", "11:30",
+  "12:00", "12:30",
+  "13:00", "13:30",
+  "14:00", "14:30",
+  "15:00", "15:30",
+  "16:00", "16:30",
     ].map((t) => {
       
       const isBooked = check?.some(
@@ -284,7 +300,7 @@ const handelConfirm= async()=>{
                 : "bg-white/30 backdrop-blur-md border border-white/30 text-gray-900 placeholder-gray-600 text-white border-gray-700 hover:border-cyan-500"
             }`}
         >
-          {t}
+            {formatTime(t)}
         </button>
       );
     })}
