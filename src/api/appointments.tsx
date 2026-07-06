@@ -28,10 +28,54 @@ export const useAppointmentid=()=>{
             .from('appointments')
             .select(`*,doctors(*,
                 profiles(full_name)
-                )`)
+                ),
+                patients(*,profiles(full_name))`)
             .eq('patient_id',session?.user.id)
                .order('created_at',{ascending:false})
                if (error) {
+        throw new Error(error.message);
+      }
+      return data;
+        }
+    })
+}
+
+export const useAppointmentDoctorid=()=>{
+    const {session}=useAuth()
+    return useQuery({
+        queryKey:['appointments',session?.user.id],
+        queryFn:async()=>{
+            const {data,error}=await supabase
+            .from("appointments")
+            .select(`*,doctors(*,
+                profiles(full_name)
+                ),
+                patients(*,profiles(full_name))
+                `)
+            .eq('doctor_id',session?.user.id)
+            .order('created_at',{ascending:false})
+  if (error) {
+        throw new Error(error.message);
+      }
+      return data;
+        }
+    })
+}
+
+export const useuseAppointmentid=(id)=>{
+    return useQuery({
+        queryKey:['appointments',id],
+        queryFn:async()=>{
+               const {data,error}=await supabase
+            .from("appointments")
+            .select(`*,doctors(*,
+                profiles(full_name)
+                ),
+                patients(*,profiles(full_name))
+                `)
+            .eq('id',id)
+            .order('created_at',{ascending:false})
+  if (error) {
         throw new Error(error.message);
       }
       return data;

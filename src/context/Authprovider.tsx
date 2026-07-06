@@ -39,6 +39,8 @@ const Authprovider = ({children}:PropsWithChildren) => {
         const fetchsession=async ()=>{
             const {data:{session}}=await supabase.auth.getSession()
             setsession(session)
+            console.log(session?.user.id);
+            
             if(session?.user){
                const data =await fetchProfile(session.user.id)
                setprofile(data)

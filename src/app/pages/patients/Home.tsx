@@ -30,7 +30,7 @@ import { useQueryClient } from "@tanstack/react-query";
   const navigate = useNavigate();
     const {data: userAppointments}=useAppointmentid();
     const now = new Date();
-  const upcoming = userAppointments?.filter((a:any) => a.status !=='Cancelled'&& new Date(`${a.appointment_date}T${a.appointment_time}` ) >= now ).sort((a:any,b:any)=>
+  const upcoming = userAppointments?.filter((a:any) => a.status !=='Cancelled'&&a.status !=='completed' && new Date(`${a.appointment_date}T${a.appointment_time}` ) >= now ).sort((a:any,b:any)=>
 {
   if (a.appointment_date !== b.appointment_date) {
       return a.appointment_date.localeCompare(b.appointment_date);
@@ -122,7 +122,7 @@ return;
 <div className="flex justify-between items-center bg-white/30 backdrop-blur-md border border-white/30 rounded-2xl shadow-xl p-8  transition-shadow">     
        <div>
             <h3 className="text-2xl font-semibold text-gray-900">Total Appointments</h3>
-            <span className="text-4xl font-bold text-[#00C0C1]">{userAppointments?.filter((a)=>a.status !=='Cancelled').length ?? 0}</span>
+            <span className="text-4xl font-bold text-[#00C0C1]">{userAppointments?.filter((a)=>a.status !=='Cancelled'&&a.status !=='completed').length ?? 0}</span>
           </div>
           <IoCalendarClearOutline className="text-4xl text-[#00C0C1]"/>
         </div>
@@ -150,18 +150,18 @@ return;
             <div>
               <div className="flex justify-between items-center">
                 <div className="flex gap-4">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-semibold text-lg">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#00E0D6] to-[#00A39C] flex items-center justify-center text-white font-semibold text-lg">
                 {upcoming[0]?.doctors?.profiles?.full_name?.split(' ')?.map((n:string)=>n[0])?.join('').slice(0,2)}
               </div>
               <div>
                   <h3 className=" text-2xl font-semibold">{upcoming[0]?.doctors?.profiles?.full_name}</h3>
-                <p className="text-cyan-400 mb-2">{upcoming[0]?.doctors?.specialty}</p>
+                <p className="text-[#00A39C] mb-2">{upcoming[0]?.doctors?.specialty}</p>
                 </div>
                 </div>
               <div>
                  <div className="inline-flex items-center gap-3 border border-cyan-800 rounded-full px-5 py-2 bg-cyan-950/20 mt-2">
                    <span className="text-gray-400 uppercase">Booking ID</span>
-                  <span className="text-cyan-400 font-semibold">{upcoming[0]?.booking_id}</span>
+                  <span className="text-[#00A39C] font-semibold">{upcoming[0]?.booking_id}</span>
                  </div>
               </div>
 
@@ -278,7 +278,7 @@ return;
           <div className="flex sticky  top-0 -mx-4  px-4 mb-4 py-3 z-50 bg-white/90 backdrop-blur-2xl border  border-white justify-between items-center ">
             <h2 className="text-xl font-semibold">Upcoming Appointments</h2>
             <button
-            className="cursor-pointer flex items-center justify-center text-cyan-400"
+            className="cursor-pointer flex items-center justify-center text-[#00A39C]"
             onClick={()=>navigate('/schedule')}>View Schedule <ChevronRight /></button>
           </div>
             <div>
@@ -288,7 +288,7 @@ return;
       className="mb-3 flex items-center justify-between rounded-[26px] border border-[#08C4D8]/15 bg-white/80 backdrop-blur-xl px-6 py-5 shadow-[0_8px_30px_rgba(8,196,216,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-[#08C4D8]/30 hover:shadow-[0_18px_45px_rgba(8,196,216,0.15)]"
     >
       <div className="flex items-center gap-5">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-semibold text-lg">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#00E0D6] to-[#00A39C] flex items-center justify-center text-white font-semibold text-lg">
           {coming.doctors?.profiles?.full_name
             ?.split(" ")
             ?.map((n: string) => n[0])
@@ -301,8 +301,7 @@ return;
             {coming.doctors?.profiles?.full_name}
           </h3>
 
-          <p className="mt-1 font-medium text-[#08C4D8]">
-            {coming.doctors?.specialty}
+<p className="mt-1 text-[15px] font-semibold text-[#00A39C]">            {coming.doctors?.specialty}
           </p>
         </div>
       </div>

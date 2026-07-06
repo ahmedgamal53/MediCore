@@ -7,7 +7,7 @@ const LayoutDoctor = () => {
     <div>
         <div className="flex gap-15 relative">
             <SidebarDoctor/>
-            <div className="ml-50 flex-1">
+            <div className="ml-64 flex-1">
                 <Outlet/>
             </div>
         </div>

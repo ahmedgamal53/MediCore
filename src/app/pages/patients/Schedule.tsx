@@ -111,14 +111,14 @@ return;
                   {/* Header – avatar, doctor name, specialty */}
                   <div className="flex justify-between items-center">
                     <div className="flex gap-4 items-center">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-semibold text-lg">
+                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#00E0D6] to-[#00A39C] flex items-center justify-center text-white font-semibold text-lg">
                         {initials}
                       </div>
                       <div>
                         <h3 className="text-gray-800 text-xl font-bold">
                           {appointment?.doctors?.profiles?.full_name}
                         </h3>
-                        <p className="text-cyan-600 mt-1 text-sm">
+                        <p className="text-[#00A39C] mt-1 text-sm">
                           {appointment?.doctors?.specialty}
                         </p>
                       </div>

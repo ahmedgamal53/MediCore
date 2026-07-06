@@ -28,7 +28,15 @@ const navigate = useNavigate();
     const check=schedule?.filter((s)=>s.doctor_id===selectedDoctor?.id &&s.appointment_date===appointmentDate)
   
 
-  
+  const formatTime = (time: string) => {
+  const [hour, minute] = time.split(":").map(Number);
+
+  const displayHour =
+    hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+
+    
+  return `${displayHour}:${minute.toString().padStart(2, "0")}`;
+};
    
  
 const filterDoctor=doctors?.filter((doctor)=>{
@@ -49,12 +57,40 @@ const CloseModel=async()=>{
             setappointment('')
 }
 
+
+const id=check?.filter((a)=>a.status==="Cancelled" &&a.appointment_time===appointmentTime).map((a)=>a.id)
+    console.log('id',id);
+    
+
 const handelConfirm= async()=>{
   setLoading(true)
   try {
 
 
   await refetch();
+
+  if(check?.some((a)=>a.status==="Cancelled")){
+    
+    const {error} =await supabase.from('appointments')
+    .update({
+               patient_id:session?.user.id,
+        doctor_id:selectedDoctor?.id,
+        appointment_date:appointmentDate,
+        appointment_time:appointmentTime,
+        type:appointment,
+        status:'Scheduled'
+    })
+    .eq('id',id)
+    if(error){
+      toast.error(error.message)
+      setAppointmentTime(""); 
+  setLoading(false)
+  return; 
+    }
+toast.success("Appointment booked successfully."); 
+   navigate('/schedule')
+    return
+  }
  
     const{error}= await supabase.from('appointments')
     .upsert({
@@ -71,7 +107,7 @@ const handelConfirm= async()=>{
   setAppointmentTime(""); 
   setLoading(false)
   return;  }
-
+toast.success("Appointment booked successfully.");
       navigate('/schedule')
   } catch (error) {
     console.log(error);
@@ -89,15 +125,9 @@ const handelConfirm= async()=>{
 }
 
 
-const formatTime = (time: string) => {
-  const [hour, minute] = time.split(":").map(Number);
 
-  const displayHour =
-    hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
 
-    
-  return `${displayHour}:${minute.toString().padStart(2, "0")}`;
-};
+
 
   if(loading)
         return(
@@ -149,7 +179,7 @@ const formatTime = (time: string) => {
       className="bg-white/30 backdrop-blur-md border border-white/30 rounded-2xl p-6 flex flex-col items-center text-center"
     >
       {/* Avatar */}
-                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-white font-semibold text-lg">
+                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#00E0D6] to-[#00A39C] flex items-center justify-center text-white font-semibold text-lg">
         {doctor?.profiles?.full_name
           ?.split(" ") //Array
           .map((n) => n[0])
@@ -281,9 +311,11 @@ const formatTime = (time: string) => {
       const isBooked = check?.some(
         (a) =>
           a.appointment_date === appointmentDate &&
-          a.appointment_time === t
+          a.appointment_time === t &&
+          a.status !=="Cancelled"
       );
-       
+    console.log(check);
+    
         
       return (
         <button

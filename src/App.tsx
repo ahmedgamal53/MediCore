@@ -15,31 +15,20 @@ import ProtectedDoctor from "./app/pages/doctor/ProtectedDoctor"
 import DashbordDoctor from "./app/pages/doctor/DashbordDoctor"
 import LayoutDoctor from "./app/pages/doctor/LayoutDoctor"
 import PatientVisit from "./app/pages/doctor/PatientVisit"
-import Schedule from "./app/pages/doctor/Schedule"
+import Schedule from "./app/pages/doctor/Schedule";
+import DoctorPatients from "./app/pages/doctor/Patients";
+import PatientDetails from "./app/pages/doctor/PatientDetails";
 import LayoutPatient from "./app/pages/patients/LayoutPatient"
 import DoctorsPatient from "./app/pages/patients/DoctorsPatient"
 import SchedulePatient from "./app/pages/patients/Schedule"
 import { useEffect } from "react"
-import { supabase } from "./supabaseClient"
+import Patient from "./app/pages/doctor/Patients"
+import MedicalHistory from "./app/pages/patients/MedicalHistory"
 
 function App() {
 
-  
-  //   useEffect(() => {
-  //   const handleVisibility = () => {
-  //     if (document.visibilityState === "visible") {
-  //       window.location.reload();
-  //     }
-  //   };
 
-  //   document.addEventListener("visibilitychange", handleVisibility);
 
-  //   return () => {
-  //     document.removeEventListener("visibilitychange", handleVisibility);
-  //   };
-  // }, []);
-
- 
 
   useEffect(() => {
   let hiddenAt = 0;
@@ -88,18 +77,23 @@ function App() {
       <Route element={<LayoutDoctor/>}>
 
       <Route path="/doctor" element={<DashbordDoctor/>}/>
+      <Route path="Patient" element={<Patient/>}/>
+      <Route path="Patient/:id" element={<PatientDetails/>}/>
       <Route path="/visits" element={<PatientVisit/>}/>
       <Route path="/scheduleDoctor" element={<Schedule/>}/>
+<Route path="/doctor/patients" element={<DoctorPatients/>}/>
+<Route path="/doctor/patient/:id" element={<PatientDetails/>}/>
 </Route>
       </Route>
       
       {/* patients */}
       <Route element={<ProtectedPatients/>}>
-<Route element={<LayoutPatient/>}>
+      <Route element={<LayoutPatient/>}>
 
       <Route path="/home" element={<Home/>}/>
       <Route path="/doctorsPatient" element={<DoctorsPatient/>}/>
       <Route path="/schedule"element={<SchedulePatient/>}/>
+      <Route path="/medical"element={<MedicalHistory/>}/>
 </Route>
       </Route>
 

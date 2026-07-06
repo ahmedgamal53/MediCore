@@ -6,7 +6,7 @@ const LayoutPatient = () => {
         <div>
         <div className="flex gap-15 relative">
             <SidebarPatient/>
-            <div className="ml-50 flex-1">
+            <div className="ml-56 flex-1">
                 <Outlet/>
             </div>
         </div>

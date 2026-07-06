@@ -2,9 +2,10 @@ import { MdMonitorHeart } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { MdOutlineDashboard } from "react-icons/md";
 import { LuClock3 } from "react-icons/lu";
-import { FaClipboardList, FaStethoscope } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { supabase } from "../supabaseClient";
+import { FaStethoscope } from "react-icons/fa";
+import { FileHeart } from "lucide-react";
 
 const SidebarPatient = () => {
   return (
@@ -13,8 +14,10 @@ const SidebarPatient = () => {
     <div className="bg-[#00C0C1] px-2 py-2 rounded-xl">
                 <MdMonitorHeart className="text-2xl text-gray-900" />
     </div>     
-     <span className="text-gray-900 font-bold text-xl">MediCore</span>
-        </div>
+ <h1 className="text-[2rem] font-extrabold tracking-tight">
+      <span className="text-slate-900">Medi</span>
+      <span className="text-[#00C0C1] ">Core</span>
+    </h1>        </div>
         <div className="ml-5 mt-2">
             <h2 className="text-gray-600 text-sm font-medium">ADMINISTRAION</h2>
             <nav className="mt-4 mr-2 flex flex-col gap-3">
@@ -60,14 +63,29 @@ const SidebarPatient = () => {
                         <li>Schedule</li>
                     </NavLink>
                 </ul>
+                  <ul>
+                    <NavLink 
+                    to={'/medical'}
+                    className={({isActive})=>
+                    `${isActive
+    ? "bg-white text-[#00C0C1] shadow-lg ring-1 ring-gray-100 scale-[1.02]"
+    : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"}} flex items-center gap-3 px-3 py-2 rounded-xl transition-colors`
+
+                }
+                    >
+                        <FileHeart  className="text-2xl "/>
+                        <li>Medical History</li>
+                    </NavLink>
+                </ul>
                
-                <button 
-                onClick={()=>supabase.auth.signOut()}
-                className="flex items-center gap-3 px-3 py-2 rounded-xl text-gray-600 hover:text-gray-900 transition-colors"
-                >
-                    <FiLogOut className="text-2xl text-gray-900"/>
-                    <p>log out</p>
-                </button>
+               <button
+        onClick={() => supabase.auth.signOut()}
+        className="flex items-center gap-4 px-4 py-3  rounded-2xl text-slate-500 font-medium transition-all duration-300 hover:bg-red-50 hover:text-red-500"
+      >
+        <FiLogOut className="text-2xl" />
+        <span>Log Out</span>
+      </button>
+
             </nav>
         </div>
     </div>
