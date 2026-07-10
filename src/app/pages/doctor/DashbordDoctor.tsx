@@ -16,13 +16,7 @@ import {
 } from "recharts";
 import { CalendarDays, Stethoscope } from "lucide-react";
 
-const statusColors: Record<string, string> = {
-  
-  Scheduled: "#6b7280",
-  "In Progress": "#06b6d4",
-  completed: "#10b981",
-  Cancelled: "#ef4444",
-};
+
 
 const DashbordDoctor = () => {
   const { data: appointments, isLoading: loadingAppointments } =useAppointmentDoctorid();

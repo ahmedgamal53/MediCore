@@ -22,7 +22,7 @@ const {mutate:deletepatient}=useDeletePatient()
   const [status, setStatus] = useState("All");
   const [checked, setChecked] = React.useState(true);
   const [loading, setLoading] = useState(false);
-  const {data:patients}=usePatiens()
+  const {data:patients,isLoading}=usePatiens()
   const [showAddModal, setShowAddModal] = useState(false);
   
 const [isEditing, setIsEditing] = useState(false);
@@ -125,7 +125,7 @@ const handleAddPatient = async (e: FormEvent) => {
       }
     );
   if (error) {
-  alert(error.message);
+toast.error("This email has already been taken.");
   return;
 } else {
   toast.success("Patient Created Successfully");
@@ -212,31 +212,31 @@ const filterPatients = patients?.filter((patient) => {
 
 
   return (
-    <div className="bg-[#070E16] h-screen">
-      <div className="ml-5">
-        <div className="py-3 border-b border-b-gray-700">
-          <h2 className="text-white text-2xl font-semibold">Patients</h2>
-          <p className="text-gray-400 text-[15px]">Manage patient records</p>
+<div className="bg-[#F6F8FC] min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+        <div className="pb-6 mb-6 border-b border-slate-200">
+          <h2 className="text-slate-900 text-3xl font-bold">Patients</h2>
+          <p className="text-slate-500 text-[15px] mt-1">Manage patient records</p>
         </div>
         {/* Search and add patient */}
-        <div className="flex justify-between items-center">
-          <div className="py-3 flex items-center gap-3">
-            <div className="flex items-center relative w-[180px] md:w-[450px]">
-              <FaSearch className="text-gray-400 absolute left-3 text-sm" />
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center relative w-[220px] md:w-[420px]">
+              <FaSearch className="text-slate-400 absolute left-4 text-sm" />
               <input
                 type="search"
                 placeholder="Search patients..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-[#191e24c5] border border-transparent pl-9 pr-3 py-2 outline-none rounded-xl text-sm text-white placeholder-gray-400 transition-all duration-200"
+                className="w-full bg-white border border-slate-200 pl-10 pr-4 py-3 outline-none rounded-2xl text-sm text-slate-900 placeholder-slate-400 shadow-sm   transition-all duration-200"
               />
             </div>
-            <CiFilter className="text-white text-2xl" />
+            <CiFilter className="text-slate-500 text-2xl" />
             <div>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="bg-[#0F171F] w-full p-3 text-white rounded-xl outline-none"
+                className="bg-slate-50 border border-slate-200 w-full p-3 text-slate-700 rounded-2xl outline-none   transition-all"
               >
                 <option value="All">All Status</option>
                 <option value="Active">Active</option>
@@ -244,9 +244,9 @@ const filterPatients = patients?.filter((patient) => {
               </select>
             </div>
           </div>
-          <div className="mr-10">
+          <div>
             <button
-              className="bg-[#00C0C1] px-2 py-3 rounded-xl cursor-pointer"
+              className="bg-gradient-to-r from-emerald-500 to-teal-600 px-6 py-3 rounded-2xl text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
               onClick={openAddModal}
             >
               Add patient
@@ -259,37 +259,37 @@ const filterPatients = patients?.filter((patient) => {
       {showAddModal && (
         <div
           onClick={() => setShowAddModal(false)}
-          className="fixed inset-0 flex items-center z-50 justify-center bg-black/40"
+          className="fixed inset-0 flex items-center z-50 justify-center bg-black/25 backdrop-blur-md p-4"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#0F171F] border-2 border-[#1F2847] p-6 rounded-xl w-xl "
+            className="bg-white border border-slate-200 p-8 rounded-[30px] w-xl shadow-[0_25px_80px_rgba(15,23,42,.12)] max-h-[90vh] overflow-y-auto"
 
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="bg-[#18203F] text-[#00D9D9] px-2 py-2 rounded-xl text-xl">
+              <div className="bg-gradient-to-br from-emerald-500 to-teal-600 text-white px-3 py-3 rounded-2xl text-xl shadow-md">
                 <MdPersonAddAlt />
               </div>
-              <h3 className="text-white text-xl">{isEditing ? 'Edit Patient' : 'Add Patient'}</h3>
+              <h3 className="text-slate-900 text-xl font-semibold">{isEditing ? 'Edit Patient' : 'Add Patient'}</h3>
             </div>
-            <p className="mb-3 text-[#999999] border-b border-gray-600 py-2">
+            <p className="mb-4 text-slate-500 border-b border-slate-200 pb-4">
               Create a patient account and medical profile
             </p>
 
             <form onSubmit={isEditing?handleEditPatient :handleAddPatient} className="space-y-4">
               {/* Basic Information */}
               <div className="">
-                <div className="flex items-center gap-2  mb-4">
-                  <div className="text-[#00D9D9]  ">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="text-emerald-600">
                     <IoPersonOutline />
                   </div>
-                  <h3 className="text-[#F3F3F3]">Basic Information</h3>
+                  <h3 className="text-slate-900 font-semibold">Basic Information</h3>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                 {/* Full Name */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Full Name
                   </label>
                   <input
@@ -298,14 +298,14 @@ const filterPatients = patients?.filter((patient) => {
                     value={newPatient.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white focus:outline-none "
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none   transition-all"
                   />
                 </div>
 
                 {/* Email Address */}
                 {!isEditing && (
   <div>
-    <label className="block text-sm font-medium text-gray-400 mb-1">
+    <label className="block text-sm font-medium text-slate-600 mb-1">
       Email Address
     </label>
     <input
@@ -315,14 +315,14 @@ const filterPatients = patients?.filter((patient) => {
       value={newPatient.email}
       onChange={handleInputChange}
       required
-      className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white focus:outline-none "
+      className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none   transition-all"
     />
   </div>
 )}
 
                 {/* Phone Number */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Phone Number
                   </label>
                   <input
@@ -331,7 +331,7 @@ const filterPatients = patients?.filter((patient) => {
                     value={newPatient.phone}
                     required
                     onChange={handleInputChange}
-                    className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white focus:outline-none "
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none   transition-all"
                   />
                 </div>
 
@@ -339,7 +339,7 @@ const filterPatients = patients?.filter((patient) => {
                 {
                   !isEditing&&(
                     <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Date of Birth
                   </label>
                   <input
@@ -349,7 +349,7 @@ const filterPatients = patients?.filter((patient) => {
                     value={newPatient.dob}
                     onChange={handleInputChange}
                     required
-                    className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white focus:outline-none  "
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none   transition-all"
                   />
                 </div>
                   )
@@ -357,7 +357,7 @@ const filterPatients = patients?.filter((patient) => {
 
                 {/* Gender */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Gender
                   </label>
                   <select
@@ -365,7 +365,7 @@ const filterPatients = patients?.filter((patient) => {
                     value={newPatient.gender}
                     required
                     onChange={handleInputChange}
-                    className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white  "
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none   transition-all"
                   >
                     <option value="" disabled>Select gender</option>
                     <option value="Male">Male</option>
@@ -374,7 +374,7 @@ const filterPatients = patients?.filter((patient) => {
                 </div>
                 {/* Blood Type */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Blood Type
                   </label>
                   <select
@@ -382,7 +382,7 @@ const filterPatients = patients?.filter((patient) => {
                     value={newPatient.bloodType}
                     required
                     onChange={handleInputChange}
-                    className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white  "
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none   transition-all"
                   >
                     <option value="" disabled>Select blood type</option>
                     <option value="A+">A+</option>
@@ -398,33 +398,33 @@ const filterPatients = patients?.filter((patient) => {
                 </div>
                 {/*Account Information  */}
 
-                <div className="mt-5 pt-3 border-t border-gray-600 ">
-                   <div className="flex items-center gap-2  mb-4">                   
-                        <IoKeyOutline className="text-[#00D9D9] "/>
-                     <h3 className="text-white">
+                <div className="mt-5 pt-4 border-t border-slate-200 ">
+                   <div className="flex items-center gap-2 mb-4">                   
+                        <IoKeyOutline className="text-emerald-600"/>
+                     <h3 className="text-slate-900 font-semibold">
                         Account Information
                     </h3>
                    </div>
                    <div className="grid grid-cols-2 gap-4 ">
                     <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Role
                   </label>
-                 <div className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2  focus:outline-none ">
-                <span className="text-[#00D9D9] bg-[#00d9d949] px-3 py-1 rounded-xl border-2 border-[#00d9d949]">Patient</span>
+                 <div className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 focus:outline-none">
+                <span className="text-emerald-700 bg-emerald-50 px-3 py-1 rounded-xl border border-emerald-100">Patient</span>
                 </div>
                 </div>
 
                 <div>
-                <label  className="block text-sm font-medium text-gray-400 mb-1">Temporary Password</label>              
-                <div className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-[#999999]">
+                <label  className="block text-sm font-medium text-slate-600 mb-1">Temporary Password</label>              
+                <div className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-500">
   <span>{newPatient.phone}</span>
-  <span className="text-gray-400 ml-2">(Phone number)</span>
+  <span className="text-slate-400 ml-2">(Phone number)</span>
               </div>
                 </div>
                 <div className="col-span-2">
-                <label  className="block text-sm font-medium text-gray-400 mb-1">Account Status</label>              
-                <div className="w-full flex  items-center justify-between rounded-xl border border-gray-600 bg-gray-800 px-3 py-2">
+                <label  className="block text-sm font-medium text-slate-600 mb-1">Account Status</label>              
+                <div className="w-full flex  items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2">
                 <Stack direction="row" spacing={1} useFlexGap>
                 <Chip
           size="small"
@@ -449,14 +449,14 @@ const filterPatients = patients?.filter((patient) => {
                 <button
                   type="button"
                   onClick={closeAddModal}
-                  className="px-4 py-2 rounded-xl cursor-pointer bg-gray-600 text-white"
+                  className="bg-slate-100 text-slate-700 hover:bg-slate-200 cursor-pointer px-6 py-3 rounded-2xl font-semibold transition-all duration-300"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-4 py-2 rounded-xl disabled:cursor-no-drop cursor-pointer bg-[#00C0C1] text-white"
+                  className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white disabled:opacity-50 disabled:cursor-no-drop cursor-pointer px-6 py-3 rounded-2xl font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300"
                 >
                   {
                     loading?isEditing?'Editing Patient...':'Creating Patient...'
@@ -471,86 +471,113 @@ const filterPatients = patients?.filter((patient) => {
         </div>
       )}
       {/* tabel */}
-      <div>
-        {
-        patients && patients?.length > 0 ?(
-        <div className="mx-5 max-h-[500px]  rounded-2xl border-2  border-[#1F2847] overflow-y-auto ">
-     <table className="w-full   text-[#999999] ">
-  <thead className="bg-[#222B4F]  sticky top-0 z-5 text-[#999999]">
-    <tr>
-      <th className="px-4 py-3 text-center">Patient</th>
-      <th className="px-4 py-3 text-center">Blood Type</th>
-      <th className="px-4 py-3 text-center">Contact</th>
-      <th className="px-4 py-3 text-center">Status</th>
-      <th className="px-4 py-3 text-center">Edite</th>
-      <th className="px-4 py-3 text-center">Delete</th>
-    </tr>
-  </thead>
+     <div className="max-w-7xl mx-auto px-4 md:px-8 pb-8">
+  {isLoading ? (
+    <div className="rounded-3xl border border-slate-200 bg-white shadow-[0_10px_40px_rgba(15,23,42,.06)] p-6 space-y-3">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div
+          key={i}
+          className="h-14 rounded-2xl bg-slate-100 animate-pulse"
+        />
+      ))}
+    </div>
+  ) : patients && patients.length > 0 ? (
+    <div className="max-h-[500px] rounded-3xl border border-slate-200 bg-white shadow-[0_10px_40px_rgba(15,23,42,.06)] overflow-y-auto">
+      <table className="w-full text-slate-500">
+        <thead className="bg-slate-50 sticky top-0 z-5 text-slate-500">
+          <tr>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Patient
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Blood Type
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Contact
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Status
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Edit
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Delete
+            </th>
+          </tr>
+        </thead>
 
-  <tbody >
+        <tbody>
+          {filterPatients && filterPatients.length > 0 ? (
+            filterPatients.map((patient) => (
+              <tr
+                key={patient.id}
+                className="border-t border-slate-100 text-center hover:bg-emerald-50 transition"
+              >
+                <td className="px-4 py-4">
+                  <div className="flex flex-col">
+                    <span
+                      onClick={() => navigate(`/patients/${patient.id}`)}
+                      className="text-slate-900 font-medium cursor-pointer hover:text-emerald-700 transition-all duration-300"
+                    >
+                      {patient.profiles.full_name}
+                    </span>
+                  </div>
+                </td>
 
-   {filterPatients?.length > 0 &&patients ?(
-  filterPatients?.map((patient ) => (
-      <tr
-        key={patient.id}
-        className="border-t border-gray-700 text-center"
-      >
-        <td className="px-4 py-3">
-          <div className="flex flex-col">
-            <span 
-            onClick={()=>navigate(`/patients/${patient.id}`)}
-            className="text-white font-medium cursor-pointer">
-              {patient.profiles.full_name}
-            </span>
+                <td className="px-4 py-4 text-emerald-600 font-medium">
+                  {patient.Blood_Type}
+                </td>
 
-          </div>
-        </td>
+                <td className="px-4 py-4">{patient.phone}</td>
 
-        <td className="px-4 py-3">
-          {patient.Blood_Type}
-        </td>
+                <td className="px-4 py-4">
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      patient.profiles.status === "Active"
+                        ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                        : "bg-red-50 text-red-500 border border-red-100"
+                    }`}
+                  >
+                    {patient.profiles.status}
+                  </span>
+                </td>
 
-        <td className="px-4 py-3">
-          {patient.phone}
-        </td>
+                <td className="px-4 py-4">
+                  <span
+                    onClick={() => handleEdit(patient)}
+                    className="cursor-pointer text-emerald-600 font-medium hover:text-emerald-700 transition-all duration-300"
+                  >
+                    Edit
+                  </span>
+                </td>
 
-        <td className="px-4 py-3">
-          <span
-            className={`px-3 py-1 rounded-full text-sm ${
-              patient.profiles.status === "Active"
-                ? "bg-green-500/20 text-green-400"
-                : "bg-red-500/20 text-red-400"
-            }`}
-          >
-            {patient.profiles.status}
-          </span>
-        </td>
-        <td>
-          <span className="cursor-pointer text-blue-500" onClick={() => handleEdit(patient)}>Edit</span>
-        </td>
-        <td>
-          <span
-          onClick={()=>deletepatient(patient.id)}
-          className="cursor-pointer bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-sm">Delete</span>
-        </td>
-      </tr>
-    ))
-    ):(
-      <div className="flex justify-center items-cente my-3">
-        No patients found
-      </div>
-    )
-   }
-  </tbody>
-</table>
-     
-        </div>
-        ):(
-          <div>
-No patients found          </div>
-        )
-        }
-      </div>
+                <td className="px-4 py-4">
+                  <span
+                    onClick={() => deletepatient(patient.id)}
+                    className="cursor-pointer bg-red-50 text-red-500 border border-red-100 px-3 py-1 rounded-full text-sm font-medium hover:bg-red-100 transition-all duration-300"
+                  >
+                    Delete
+                  </span>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6} className="py-10 text-center text-slate-500">
+                No patients found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <div className="flex justify-center items-center py-12 text-slate-500 bg-white rounded-3xl border border-slate-200 shadow-sm">
+      No patients found
+    </div>
+  )}
+</div>
     </div>
   );
 };

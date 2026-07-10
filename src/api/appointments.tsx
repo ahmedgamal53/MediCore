@@ -1,6 +1,7 @@
 import {  useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { supabase } from "../supabaseClient"
 import { useAuth } from "../context/Authprovider"
+import toast from "react-hot-toast"
 
 export const useAppointment=()=>{
     return useQuery({
@@ -10,7 +11,8 @@ export const useAppointment=()=>{
             .from('appointments')
             .select(`*,doctors(*,
                 profiles(full_name)
-                )`)
+                ),
+                patients(*,profiles(full_name))`)
                .order('created_at',{ascending:false})
                if (error) {
         throw new Error(error.message);
@@ -61,8 +63,50 @@ export const useAppointmentDoctorid=()=>{
         }
     })
 }
+export const useAppointmentDoctor=(id:string)=>{
+    
+    return useQuery({
+        queryKey:['appointments',id],
+        queryFn:async()=>{
+            const {data,error}=await supabase
+            .from("appointments")
+            .select(`*,doctors(*,
+                profiles(full_name)
+                ),
+                patients(*,profiles(full_name))
+                `)
+            .eq('doctor_id',id)
+            .order('created_at',{ascending:false})
+  if (error) {
+        throw new Error(error.message);
+      }
+      return data;
+        }
+    })
+}
+export const useAppointmentPatient=(id:string)=>{
+    
+    return useQuery({
+        queryKey:['appointments',id],
+        queryFn:async()=>{
+            const {data,error}=await supabase
+            .from("appointments")
+            .select(`*,doctors(*,
+                profiles(full_name)
+                ),
+                patients(*,profiles(full_name))
+                `)
+            .eq('patient_id',id)
+            .order('created_at',{ascending:false})
+  if (error) {
+        throw new Error(error.message);
+      }
+      return data;
+        }
+    })
+}
 
-export const useuseAppointmentid=(id)=>{
+export const useuseAppointmentid=(id:string)=>{
     return useQuery({
         queryKey:['appointments',id],
         queryFn:async()=>{
@@ -97,6 +141,7 @@ export const useDeleteAppointment=()=>{
         },
         async onSuccess(){
             await queryClient.invalidateQueries({queryKey:['appointments']})
+            toast.success("Appointment deleted successfully.");
         }
     })
 }

@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { supabase } from "../supabaseClient"
+import toast from "react-hot-toast"
 
 export const usePatiens=()=>{
     return useQuery({
@@ -52,6 +53,7 @@ export const useDeletePatient=()=>{
         async onSuccess(){
             await queryClient.invalidateQueries({queryKey:['profiles']})
             await queryClient.invalidateQueries({queryKey:['patients']})
+            toast.success("Patient deleted successfully.");
         } 
     })
 }

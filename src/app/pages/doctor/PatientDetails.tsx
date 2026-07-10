@@ -309,19 +309,7 @@ const paginatedVisits = previousVisits?.slice(
   ))}
 </section>
 
-      {/* Vital Signs */}
-      {/* <section className="bg-white rounded-xl shadow p-4">
-        <h2 className="text-xl font-medium mb-2">Vital Signs</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <EditableInput label="Height (cm)" value={height} setValue={setHeight} />
-          <EditableInput label="Weight (kg)" value={weight} setValue={setWeight} />
-          <EditableInput label="BMI" value={bmi} setValue={setBmi} />
-          <EditableInput label="Blood Pressure" value={bloodPressure} setValue={setBloodPressure} />
-          <EditableInput label="Heart Rate (bpm)" value={heartRate} setValue={setHeartRate} />
-          <EditableInput label="Temperature (°C)" value={temperature} setValue={setTemperature} />
-          <EditableInput label="Oxygen Saturation (%)" value={oxygenSat} setValue={setOxygenSat} />
-        </div>
-      </section> */}
+ 
 
       {/* Chief Complaint */}
 <div >

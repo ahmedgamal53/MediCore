@@ -14,14 +14,13 @@ function Doctors() {
   const [status, setStatus] = useState("All");
   const [loading, setLoading] = useState(false);
 
-const {data:doctors}=useDoctors()
+const {data:doctors,isLoading}=useDoctors()
 const navigate=useNavigate()
 const{mutate:deleteDoctor}=useDeleteDoctor()
   // State for search input
   const [search, setSearch] = useState("");
 const [isEditing, setIsEditing] = useState(false);
 const [selecteddoctor, setselecteddoctor] = useState(null);
-
   // State to control Add Doctor modal visibility
   const [showAddModal, setShowAddModal] = useState(false);
 
@@ -48,7 +47,7 @@ const [selecteddoctor, setselecteddoctor] = useState(null);
     setShowAddModal(true);
     setIsEditing(false)
     setNewDoctor({
-         fullName: "",
+    fullName: "",
     email: "",
     phone: "",
     specialty: "",
@@ -148,7 +147,7 @@ const {error}=await supabase
   phone:newDoctor.phone,
   currentstatus:newDoctor.currentstatus
 })
-.eq('id',selecteddoctor.id)
+.eq('id',selecteddoctor?.id)
 if(error)throw error
 
 
@@ -187,31 +186,31 @@ if(error)throw error
 
 
   return (
-        <div className="bg-[#070E16] h-screen">
-          <div className="ml-5">
-            <div className="py-3 border-b border-b-gray-700">
-              <h2 className="text-white text-2xl font-semibold">Doctors</h2>
-              <p className="text-gray-400 text-[15px]">Manage medical staff</p>
+       <div className="bg-[#F6F8FC] min-h-screen">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+            <div className="pb-6 mb-6 border-b border-slate-200">
+              <h2 className="text-slate-900 text-3xl font-bold">Doctors</h2>
+              <p className="text-slate-500 text-[15px] mt-1">Manage medical staff</p>
             </div>
             {/* Search and add patient */}
-            <div className="flex justify-between items-center">
-              <div className="py-3 flex items-center gap-3">
-                <div className="flex items-center relative w-[180px] md:w-[450px]">
-                  <FaSearch className="text-gray-400 absolute left-3 text-sm" />
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center relative w-[220px] md:w-[420px]">
+                  <FaSearch className="text-slate-400 absolute left-4 text-sm" />
                   <input
                     type="search"
                     placeholder="Search doctors..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full bg-[#191e24c5] border border-transparent pl-9 pr-3 py-2 outline-none rounded-xl text-sm text-white placeholder-gray-400 transition-all duration-200"
+                    className="w-full bg-white border border-slate-200 pl-10 pr-4 py-3 outline-none rounded-2xl text-sm text-slate-900 placeholder-slate-400 shadow-sm  transition-all duration-200"
                   />
                 </div>
-                <CiFilter className="text-white text-2xl" />
+                <CiFilter className="text-slate-500 text-2xl" />
                 <div>
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="bg-[#0F171F] w-full p-3 text-white rounded-xl outline-none"
+                    className="bg-slate-50 border border-slate-200 w-full p-3 text-slate-700 rounded-2xl outline-none   transition-all"
                   >
                     <option value="All">All Status</option>
                     <option value="Available">Available</option>
@@ -220,9 +219,9 @@ if(error)throw error
                   </select>
                 </div>
               </div>
-              <div className="mr-10">
+              <div>
                 <button
-                  className="bg-[#00C0C1] px-2 py-3 rounded-xl cursor-pointer"
+                  className="bg-gradient-to-r from-emerald-500 to-teal-600 px-6 py-3 rounded-2xl text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
                   onClick={openAddModal}
                 >
                   Add Doctor
@@ -237,33 +236,33 @@ if(error)throw error
     {showAddModal && (
  <div
           onClick={() => setShowAddModal(false)}
-          className="fixed inset-0 flex items-center z-50 justify-center bg-black/40"
+          className="fixed inset-0 flex items-center z-50 justify-center bg-black/25 backdrop-blur-md p-4"
         >     
  <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#0F171F] border-2 border-[#1F2847] p-6 rounded-xl w-xl "          > 
+            className="bg-white border border-slate-200 p-8 rounded-[30px] w-xl shadow-[0_25px_80px_rgba(15,23,42,.12)] max-h-[90vh] overflow-y-auto"          > 
   <div className="flex items-center gap-3 mb-2">
-              <div className="bg-[#18203F] text-[#00D9D9] px-2 py-2 rounded-xl text-xl">
+              <div className="bg-gradient-to-br from-emerald-500 to-teal-600 text-white px-3 py-3 rounded-2xl text-xl shadow-md">
                 <MdPersonAddAlt />
               </div>
-              <h3 className="text-white text-xl">Add Doctor</h3>
+              <h3 className="text-slate-900 text-xl font-semibold">Add Doctor</h3>
             </div>   
-             <p className="mb-3 text-[#999999] border-b border-gray-600 py-2">
+             <p className="mb-4 text-slate-500 border-b border-slate-200 pb-4">
               Create a doctor profile and assign specialties
             </p>
        <form onSubmit={isEditing?EditeDoctor:saveDoctor} className="space-y-4">
                    {/* Basic Information */}
-                     <div className="flex items-center gap-2  mb-4">
-                       <div className="text-[#00D9D9]  ">
+                     <div className="flex items-center gap-2 mb-4">
+                       <div className="text-emerald-600">
                          <IoPersonOutline />
                        </div>
-                       <h3 className="text-[#F3F3F3]">Basic Information</h3>
+                       <h3 className="text-slate-900 font-semibold">Basic Information</h3>
                      </div>
      
                      <div className="grid grid-cols-2 gap-4">
                      {/* Full Name */}
                      <div>
-                       <label className="block text-sm font-medium text-gray-400 mb-1">
+                       <label className="block text-sm font-medium text-slate-600 mb-1">
                          Full Name
                        </label>
                        <input
@@ -273,7 +272,7 @@ if(error)throw error
                          value={newDoctor.fullName}
                          onChange={handleInputChange}
                          
-                         className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white focus:outline-none "
+                         className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none     transition-all"
                        />
                      </div>
      
@@ -281,7 +280,7 @@ if(error)throw error
       {
         !isEditing&&(
            <div>
-         <label className="block text-sm font-medium text-gray-400 mb-1">
+         <label className="block text-sm font-medium text-slate-600 mb-1">
            Email Address
          </label>
          <input
@@ -292,7 +291,7 @@ if(error)throw error
            value={newDoctor.email}
            onChange={handleInputChange}
            required
-           className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white focus:outline-none "
+           className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none     transition-all"
          />
        </div>
         )
@@ -301,7 +300,7 @@ if(error)throw error
      
                      {/* Phone Number */}
                      <div>
-                       <label className="block text-sm font-medium text-gray-400 mb-1">
+                       <label className="block text-sm font-medium text-slate-600 mb-1">
                          Phone Number
                        </label>
                        <input
@@ -310,19 +309,19 @@ if(error)throw error
                          value={newDoctor.phone}
                          required
                          onChange={handleInputChange}
-                         className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white focus:outline-none "
+                         className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none     transition-all"
                        />
                      </div>
                      {/*Specialty   */}
                       <div>
-                       <label className="block text-sm font-medium text-gray-400 mb-1">
+                       <label className="block text-sm font-medium text-slate-600 mb-1">
                          Specialty
                        </label>
                       <select name="specialty"
                        value={newDoctor.specialty}
                       onChange={handleInputChange}
                       required
-                      className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white  "
+                      className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none     transition-all"
                       >
                         <option value="" disabled>Select Specialty</option>
                         
@@ -340,15 +339,15 @@ if(error)throw error
                      </div>
 
 
-                          <div className="flex col-span-2  items-center gap-2  border-t border-gray-600 pt-2 ">
-                       <div className="text-[#00D9D9]  ">
+                          <div className="flex col-span-2 items-center gap-2 border-t border-slate-200 pt-4">
+                       <div className="text-emerald-600">
                          <LuBriefcaseBusiness />
                        </div>
-                       <h3 className="text-[#F3F3F3]">Professional Information</h3>
+                       <h3 className="text-slate-900 font-semibold">Professional Information</h3>
                      </div>
 
                <div>
-                       <label className="block text-sm font-medium text-gray-400 mb-1">
+                       <label className="block text-sm font-medium text-slate-600 mb-1">
                          Experience (Years)
                        </label>
                        <input
@@ -357,19 +356,19 @@ if(error)throw error
                          value={newDoctor.experience}
                          onChange={handleInputChange}
                          required
-                         className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white focus:outline-none "
+                         className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none     transition-all"
                        />
                      </div>
 
                         <div>
-                       <label className="block text-sm font-medium text-gray-400 mb-1">
+                       <label className="block text-sm font-medium text-slate-600 mb-1">
                          Current Status
                        </label>
                        <select name="currentstatus"
                        required
                         value={newDoctor.currentstatus}
                         onChange={handleInputChange}
-                        className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-white  ">
+                        className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none     transition-all">
                           <option value="Available">Available</option>
                           <option value="Busy">Busy</option>
                     <option value="Off-Duty">Off-Duty</option>
@@ -378,43 +377,43 @@ if(error)throw error
 
                                 {/*Account Information  */}
 
-                   <div className="flex items-center gap-2 col-span-2   mt-5 pt-3 border-t border-gray-600">                   
-                        <IoKeyOutline className="text-[#00D9D9] "/>
-                     <h3 className="text-white">
+                   <div className="flex items-center gap-2 col-span-2 mt-2 pt-4 border-t border-slate-200">                   
+                        <IoKeyOutline className="text-emerald-600"/>
+                     <h3 className="text-slate-900 font-semibold">
                         Account Information
                     </h3>
                    </div>
                     <div>
-                  <label className="block text-sm font-medium text-gray-400 mb-1">
+                  <label className="block text-sm font-medium text-slate-600 mb-1">
                     Role
                   </label>
-                 <div className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2  focus:outline-none ">
-                <span className="text-[#00D9D9] bg-[#00d9d949] px-3 py-1 rounded-xl border-2 border-[#00d9d949]">doctor</span>
+                 <div className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 focus:outline-none">
+                <span className="text-emerald-700 bg-emerald-50 px-3 py-1 rounded-xl border border-emerald-100">doctor</span>
                 </div>
                 </div>
 
                 <div>
-                <label  className="block text-sm font-medium text-gray-400 mb-1">Temporary Password</label>              
-                <div className="w-full rounded-xl border border-gray-600 bg-gray-800 px-3 py-2 text-[#999999]">
+                <label  className="block text-sm font-medium text-slate-600 mb-1">Temporary Password</label>              
+                <div className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 text-slate-500">
   <span>{newDoctor.phone}</span>
-  <span className="text-gray-400 ml-2">(Phone number)</span>
+  <span className="text-slate-400 ml-2">(Phone number)</span>
               </div>
                 </div>
                 </div>
 
-                       <div className="mt-4 flex justify-end gap-2">
+                       <div className="mt-6 flex justify-end gap-3">
             <button
               onClick={closeAddModal}
-              className="bg-gray-600 cursor-pointer px-4 py-2 rounded-xl text-white"
+              className="bg-slate-100 text-slate-700 hover:bg-slate-200 cursor-pointer px-6 py-3 rounded-2xl font-semibold transition-all duration-300"
             >
               Cancel
             </button>
             <button
             type="submit"
               disabled={loading}
-              className="bg-[#00C0C1] cursor-pointer px-4 py-2 rounded-xl text-white"
+              className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white cursor-pointer px-6 py-3 rounded-2xl font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300"
             >
-              {loading?isEditing?'Edting Doctor...':'Creating Doctor'
+              {loading?isEditing?'Edting Doctor...':'Creating Doctor...'
             :isEditing?'Edite Doctor' :'Create Doctor'  
             }
             </button>
@@ -428,98 +427,125 @@ if(error)throw error
 
 
     
-            <div>
-        {
-        doctors && doctors?.length > 0 ?(
-        <div className="mx-5 max-h-[500px]  rounded-2xl border-2  border-[#1F2847] overflow-y-auto ">
-     <table className="w-full   text-[#999999] ">
-  <thead className="bg-[#222B4F]  sticky top-0 z-5 text-[#999999]">
-    <tr>
-      <th className="px-4 py-3 text-center">Patient</th>
-      <th className="px-4 py-3 text-center">Specialty</th>
-      <th className="px-4 py-3 text-center">Contact</th>
-      <th className="px-4 py-3 text-center">Status</th>
-      <th className="px-4 py-3 text-center">Experience</th>
-      <th className="px-4 py-3 text-center">Edite</th>
-      <th className="px-4 py-3 text-center">Delete</th>
-    </tr>
-  </thead>
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-8">
+  {isLoading ? (
+    <div className="rounded-3xl border border-slate-200 bg-white shadow-[0_10px_40px_rgba(15,23,42,.06)] p-6 space-y-3">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div
+          key={i}
+          className="h-14 rounded-2xl bg-slate-100 animate-pulse"
+        />
+      ))}
+    </div>
+  ) : doctors && doctors.length > 0 ? (
+    <div className="max-h-[500px] rounded-3xl border border-slate-200 bg-white shadow-[0_10px_40px_rgba(15,23,42,.06)] overflow-y-auto">
+      <table className="w-full text-slate-500">
+        <thead className="bg-slate-50 sticky top-0 z-5 text-slate-500">
+          <tr>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Patient
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Specialty
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Contact
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Status
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Experience
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Edit
+            </th>
+            <th className="px-4 py-4 text-center text-xs font-medium uppercase tracking-wide">
+              Delete
+            </th>
+          </tr>
+        </thead>
 
-  <tbody >
+        <tbody>
+          {(filterPatients?.length ?? 0) > 0 ? (
+            filterPatients?.map((doctor) => (
+              <tr
+                key={doctor.id}
+                className="border-t border-slate-100 text-center transition"
+              >
+                <td className="px-4 py-4">
+                  <div className="flex flex-col">
+                    <span
+                      onClick={() => navigate(`/doctors/${doctor.id}`)}
+                      className="text-slate-900 font-medium cursor-pointer hover:text-emerald-700 transition-all duration-300"
+                    >
+                      {doctor.profiles.full_name}
+                    </span>
+                  </div>
+                </td>
 
-   {filterPatients?.length > 0?(
-  filterPatients?.map((doctor: { id: Key | null | undefined; profiles: { full_name: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; }; specialty: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; phone: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; currentstatus: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; experience: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; } ) => (
-      <tr
-        key={doctor.id}
-        className="border-t border-gray-700 text-center"
-      >
-        <td className="px-4 py-3">
-          <div className="flex flex-col">
-            <span 
-            onClick={()=>navigate(`/doctors/${doctor.id}`)}
-            className="text-white font-medium cursor-pointer">
-              {doctor.profiles.full_name}
-            </span>
+                <td className="px-4 py-4 text-emerald-600 font-medium">
+                  {doctor.specialty}
+                </td>
 
-          </div>
-        </td>
+                <td className="px-4 py-4">{doctor.phone}</td>
 
-        <td className="px-4 py-3 text-[#00D9D9]">
-          {doctor.specialty}
-        </td>
+                <td className="px-4 py-4">
+                  <span
+                    className={`px-3 py-1 rounded-full font-semibold text-[12px] ${
+                      doctor.currentstatus === "Available"
+                        ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                        : doctor.currentstatus === "Busy"
+                        ? "bg-teal-50 text-teal-700 border border-teal-100"
+                        : doctor.currentstatus === "Off-Duty"
+                        ? "bg-slate-100 text-slate-500 border border-slate-200"
+                        : ""
+                    }`}
+                  >
+                    {doctor.currentstatus}
+                  </span>
+                </td>
 
-        <td className="px-4 py-3">
-          {doctor.phone}
-        </td>
+                <td className="px-4 py-4">{doctor.experience}</td>
 
-        <td className="px-4 py-3">
-          <span
-            className={`px-3 py-1 rounded-full font-semibold text-[12px] ${
-    doctor.currentstatus === "Available"
-    ? "bg-green-500/20 text-green-400"
-    : doctor.currentstatus === "Busy"
-    ? "bg-cyan-500/20 text-cyan-400"
-    : doctor.currentstatus === "Off-Duty"
-    ? "bg-gray-500/20 text-gray-400"
-    : ""
-              
-            }`}
-          >
-            {doctor.currentstatus}
-          </span>
-        </td>
-        
-        <td className="px-4 py-3">
-          {doctor.experience}
-        </td>
-        <td>
-          <span className="cursor-pointer text-blue-500" 
-          onClick={() => handleEdit(doctor)}
->Edit</span>
-        </td>
-        <td>
-          <span
-          onClick={()=>deleteDoctor(doctor.id)}
-          className="cursor-pointer bg-red-500/20 text-red-400 px-3 py-1 rounded-full text-sm">Delete</span>
-        </td>
-      </tr>
-    ))
-    ):(
-      <div className="flex justify-center items-cente my-3">
-        No Doctors found
-      </div>
-    )
-   }
-  </tbody>
-</table>
-     
-        </div>
-        ):(
-          <div>
-No patients found          </div>
-        )
-        }
-      </div>
+                <td className="px-4 py-4">
+                  <span
+                    onClick={() => handleEdit(doctor)}
+                    className="cursor-pointer text-emerald-600 font-medium hover:text-emerald-700 transition-all duration-300"
+                  >
+                    Edit
+                  </span>
+                </td>
+
+                <td className="px-4 py-4">
+                  <span
+                    onClick={() => deleteDoctor(doctor.id)}
+                    className="cursor-pointer bg-red-50 text-red-500 border border-red-100 px-3 py-1 rounded-full text-sm font-medium hover:bg-red-100 transition-all duration-300"
+                  >
+                    Delete
+                  </span>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={7}
+                className="py-10 text-center text-slate-500"
+              >
+                No Doctors found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <div className="flex justify-center items-center py-12 text-slate-500 bg-white rounded-3xl border border-slate-200 shadow-sm">
+      No patients found
+    </div>
+  )}
+</div>
     </div>
   )
 }

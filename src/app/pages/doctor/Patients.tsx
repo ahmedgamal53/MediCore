@@ -11,7 +11,6 @@ const Patient = () => {
   const itemsPerPage = 5;
   const filtered = appointments?.filter((a)=>
 {
-  console.log((a.booking_id).split('-')[2]);
     return a.patients?.profiles.full_name.toLowerCase().includes(search.toLowerCase()) || a.booking_id.split('-')[2].includes(search)
 
 }

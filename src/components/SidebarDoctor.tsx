@@ -42,7 +42,7 @@ const SidebarDoctor = () => {
           `flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 font-medium
           ${
             isActive
-              ? "bg-white text-cyan-500 shadow-lg border border-slate-200"
+              ? "bg-white text-cyan-500 shadow-lg "
               : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
           }`
         }
@@ -58,7 +58,7 @@ const SidebarDoctor = () => {
           `flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 font-medium
           ${
             isActive
-              ? "bg-white text-cyan-500 shadow-lg border border-slate-200"
+              ? "bg-white text-cyan-500 shadow-lg "
               : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
           }`
         }
@@ -72,7 +72,7 @@ const SidebarDoctor = () => {
           `flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 font-medium
           ${
             isActive
-              ? "bg-white text-cyan-500 shadow-lg border border-slate-200"
+              ? "bg-white text-cyan-500 shadow-lg "
               : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
           }`
         }
@@ -88,7 +88,7 @@ const SidebarDoctor = () => {
           `flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 font-medium
           ${
             isActive
-              ? "bg-white text-cyan-500 shadow-lg border border-slate-200"
+              ? "bg-white text-cyan-500 shadow-lg "
               : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
           }`
         }
