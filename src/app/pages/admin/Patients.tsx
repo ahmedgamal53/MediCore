@@ -130,6 +130,20 @@ toast.error("This email has already been taken.");
 } else {
   toast.success("Patient Created Successfully");
 }
+
+
+const {error:activityError }=await supabase
+.from("recent_activity")
+.insert({
+  patient_name:newPatient.name,
+type: "patient_created",
+title:"New patient added",
+description:`${newPatient.name} `
+
+})
+if (activityError) {
+  console.error(activityError);
+}
     await queryClient.invalidateQueries({queryKey:['patients']})
     await queryClient.invalidateQueries({queryKey:['profiles']})
 

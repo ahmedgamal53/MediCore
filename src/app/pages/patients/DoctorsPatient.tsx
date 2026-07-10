@@ -7,6 +7,8 @@ import { RingLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
 import { useAppointment } from '../../../api/appointments';
 import toast from 'react-hot-toast';
+import { usePatientDetails } from '../../../api/Patients';
+import { useQueryClient } from '@tanstack/react-query';
 
 const DoctorsPatient = () => {
       const [search, setSearch] = useState("");
@@ -17,11 +19,13 @@ const DoctorsPatient = () => {
       const [appointmentTime, setAppointmentTime] = useState("");
       const [appointment,setappointment]=useState('')
         const [loading, setLoading] = useState(false);
-const navigate = useNavigate();
-
+        const navigate = useNavigate();
+    const {session}=useAuth()
+        
+    const id=session?.user.id
+        const {data:PatientDetails}=usePatientDetails(id)
 
     const {data:doctors}=useDoctors()
-    const {session}=useAuth()
       const { data: schedule ,refetch} = useAppointment();
 
 
@@ -58,9 +62,12 @@ const CloseModel=async()=>{
 }
 
 
-const id=check?.filter((a)=>a.status==="Cancelled" &&a.appointment_time===appointmentTime).map((a)=>a.id)
-    console.log('id',id);
     
+
+const doctorName=selectedDoctor?.profiles.full_name
+const patientName=PatientDetails?.profiles.full_name
+
+  const queryClient=useQueryClient()
 
 const handelConfirm= async()=>{
   setLoading(true)
@@ -87,6 +94,21 @@ const handelConfirm= async()=>{
   setLoading(false)
   return; 
     }
+    
+  const {error:activityError }=await supabase
+  .from("recent_activity")
+  .insert({
+    doctor_name:doctorName,
+    patient_name:patientName,
+  type: "appointment_created",
+  title:"Appointment scheduled",
+  
+  })
+  if (activityError) {
+    console.error(activityError);
+  }
+      await queryClient.invalidateQueries({queryKey:['appointments']})
+    await queryClient.invalidateQueries({queryKey:['recent_activity']})
 toast.success("Appointment booked successfully."); 
    navigate('/schedule')
     return
@@ -107,7 +129,23 @@ toast.success("Appointment booked successfully.");
   setAppointmentTime(""); 
   setLoading(false)
   return;  }
+
+  const {error:activityError }=await supabase
+  .from("recent_activity")
+  .insert({
+    doctor_name:doctorName,
+    patient_name:patientName,
+  type: "appointment_created",
+  title:"Appointment scheduled",
+  
+  })
+  if (activityError) {
+    console.error(activityError);
+  }
 toast.success("Appointment booked successfully.");
+    await queryClient.invalidateQueries({queryKey:['appointments']})
+    await queryClient.invalidateQueries({queryKey:['recent_activity']})
+
       navigate('/schedule')
   } catch (error) {
     console.log(error);

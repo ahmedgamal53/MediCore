@@ -25,6 +25,8 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import { useRecentActivity } from "../../../api/recentactivity";
+import { FaUserDoctor } from "react-icons/fa6";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -33,6 +35,9 @@ const Dashboard = () => {
   const { data: patients, isLoading: loadingPatients } = usePatiens();
   const { data: doctors, isLoading: loadingDoctors } = useDoctors();
   const { data: appointments, isLoading: loadingAppointments } = useAppointment();
+
+const {data:recentactivity}=useRecentActivity()
+console.log('recentactivity',recentactivity);
 
   // Current date string for "today"
   const today = new Date().toISOString().split("T")[0];
@@ -98,7 +103,8 @@ const Dashboard = () => {
         text: `New patient added: ${name}`,
       });
     });
-    // Sort combined activity descending, keep latest 5 entries
+  
+
     activity.sort((a, b) => b.timestamp - a.timestamp);
     const activityTimeline = activity.slice(0, 5);
 
@@ -155,6 +161,83 @@ const donutData = useMemo(() => {
 
   // Loading placeholder for the whole page – keep UI responsive
   const isLoading = loadingPatients || loadingDoctors || loadingAppointments;
+
+
+
+const renderActivity =(act:any)=>{
+  switch (act.type){
+    case "doctor_created":
+    return(
+          <div className="flex  items-center gap-3">
+          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+            <FaUserDoctor  className="text-emerald-600" />
+          </div>
+
+          <div>
+            <p className="text-xs text-slate-500 mb-1">
+              {new Date(act.created_at).toLocaleString(undefined, {
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+              })}
+            </p>
+
+            <p className="text-slate-900">
+              {act.title}: {act.doctor_name}
+            </p>
+          </div>
+        </div>
+    )
+    case "patient_created":
+      return(
+          <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+            <IoPersonOutline className="text-emerald-600" />
+          </div>
+
+          <div>
+            <p className="text-xs text-slate-500 mb-1">
+              {new Date(act.created_at).toLocaleString(undefined, {
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+              })}
+            </p>
+
+            <p className="text-slate-900">
+              {act.title}: {act.patient_name}
+            </p>
+          </div>
+        </div>
+      )
+      case "appointment_created":
+      return(
+          <div className="flex items-center gap-3">
+          <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+            <IoCalendarOutline  className="text-emerald-600" />
+          </div>
+
+          <div>
+            <p className="text-xs text-slate-500 mb-1">
+              {new Date(act.created_at).toLocaleString(undefined, {
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+              })}
+            </p>
+
+            <p className="text-slate-900">
+              {act.title}: {act.patient_name} with Dr.{act.patient_name}
+            </p>
+          </div>
+        </div>
+      )
+  }
+}
+
 
   return (
     <div className="bg-[#F6F8FC] min-h-screen p-6 md:p-10 text-slate-900">
@@ -410,30 +493,24 @@ const donutData = useMemo(() => {
         </section>
 
         {/* Recent Activity Timeline */}
+     
+
+
         <section className="mb-8">
           <h3 className="text-xl font-semibold text-slate-900 mb-4">Recent Activity</h3>
           <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-5">
-            {activityTimeline.length > 0 ? (
-              <ul className="space-y-4">
-                {activityTimeline.map((act, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
-                      {act.icon}
-                    </div>
-                    <div>
-                      <p className="text-xs text-slate-500 mb-1">
-                        {new Date(act.timestamp).toLocaleString(undefined, {
-                          month: "short",
-                          day: "numeric",
-                          hour: "numeric",
-                          minute: "numeric",
-                        })}
-                      </p>
-                      <p className="text-slate-900">{act.text}</p>
-                    </div>
-                  </li>
+            {recentactivity?.length ? (
+              <div className="space-y-4">
+
+                {recentactivity.map((act, idx) => (
+                  <div key={idx} className="flex items-start  gap-3">
+                  
+               {
+                renderActivity(act)
+               }
+                  </div>
                 ))}
-              </ul>
+              </div>
             ) : (
               <p className="text-slate-500">No recent activity.</p>
             )}

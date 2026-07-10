@@ -118,6 +118,20 @@ const handleEdit=(doctor)=>{
   return;
 } else {
 toast.success("Doctor Created Successfully");}
+
+const {error:activityError }=await supabase
+.from("recent_activity")
+.insert({
+  doctor_name:newDoctor.fullName,
+  
+type: "doctor_created",
+title:"New Doctor added",
+description:`${newDoctor.fullName} `
+
+})
+if (activityError) {
+  console.error(activityError);
+}
     await queryClient.invalidateQueries({queryKey:['doctors']})
     await queryClient.invalidateQueries({queryKey:['profiles']})
 
