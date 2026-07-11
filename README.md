@@ -154,7 +154,7 @@
 
 ### Login
 
-<img width="420" height="458" alt="image" src="https://github.com/user-attachments/assets/9a0cb20a-a7ce-4b9d-8133-387b298f0cab" />
+<img width="420" height="420" alt="image" src="https://github.com/user-attachments/assets/9a0cb20a-a7ce-4b9d-8133-387b298f0cab" />
 
 
 ---
