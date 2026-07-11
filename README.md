@@ -24,8 +24,25 @@
 
 > Placeholders — to be replaced with actual application screenshots.
 
-### Admin Dashboard
-![Admin Dashboard](images/admin-dashboard.png)
+## Admin Dashboard
+
+<img src="https://github.com/user-attachments/assets/0064fb0f-9c7c-4a76-bd64-115e36b34109" width="48%" />
+<img src="https://github.com/user-attachments/assets/f63a2819-fdb5-4c28-98ee-ba720e68e6de" width="48%" />
+
+## Admin Patients
+
+<img src="https://github.com/user-attachments/assets/f98adf38-915a-4dae-ab50-f2fa1dd6fb92" width="48%" />
+<img src="https://github.com/user-attachments/assets/7f440ff2-57ab-47c0-9c27-0b7d74d116cd" width="48%" />
+
+## Admin Doctors
+
+<img src="https://github.com/user-attachments/assets/3b733957-b1a1-460f-ad62-e88854202b58" width="48%" />
+<img src="https://github.com/user-attachments/assets/f35aaddf-eba1-452e-9a77-940ee697fd51" width="48%" />
+
+## Admin Appointments
+
+<img src="https://github.com/user-attachments/assets/92205ee0-df98-41db-8d84-a5b7c45e0063" width="48%" />
+<img src="https://github.com/user-attachments/assets/36b826ea-eaaf-4fbc-b32d-24e5b53b4705" width="48%" />
 
 ### Doctor Dashboard
 ![Doctor Dashboard](images/doctor-dashboard.png)
