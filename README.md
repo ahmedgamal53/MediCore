@@ -12,6 +12,14 @@
   <img src="https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square" alt="License" />
 </p>
 
+<p align="center">
+  <img src="images/banner.png" alt="MediCore Banner" width="100%" />
+</p>
+
+<p align="center">
+  <a href="https://medicore-2iq.pages.dev/"><strong>🔗 Live Demo</strong></a>
+</p>
+
 ---
 
 ## Table of Contents
@@ -185,6 +193,7 @@ MediCore uses **PostgreSQL via Supabase**, with a relational schema designed aro
 | `doctors` | Doctor-specific data (specialty, availability), FK → `profiles.id` |
 | `patients` | Patient-specific data (medical info, contact), FK → `profiles.id` |
 | `appointments` | Transactional table linking a patient, a doctor, a time slot, and a status; FK → `doctors.id`, FK → `patients.id` |
+| `recent_activity` | Audit/event log table capturing key actions (bookings, status changes, record edits) for dashboard feeds and traceability; FK → `profiles.id` |
 
 **Why this structure scales**
 
