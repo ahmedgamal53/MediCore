@@ -317,15 +317,11 @@ VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
 ---
 
 ## Future Improvements
-
-- [ ] Real-time appointment notifications via Supabase Realtime
-- [ ] Automated email reminders for upcoming appointments
-- [ ] Structured medical records module (history, diagnoses, attachments)
-- [ ] Digital prescription generation and tracking
-- [ ] File upload support for lab results and documents (Supabase Storage)
-- [ ] Admin analytics/reporting dashboard with exportable reports
-- [ ] Multi-clinic / multi-tenant support
-- [ ] Audit logging for sensitive record changes
+- [ ] Implement advanced filtering and search across doctors, patients, and appointments.
+- [ ] Expand the analytics dashboard with additional insights and performance metrics.
+- [ ] Improve role permissions with more granular access control.
+- [ ] Optimize database queries and application performance for larger datasets.
+- [ ] Configure CI/CD pipelines for automated testing and deployment.
 
 ---
 
