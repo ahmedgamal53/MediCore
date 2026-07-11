@@ -153,13 +153,9 @@
 </table>
 
 ### Login
-![Login](images/login.png)
 
-### Appointments
-![Appointments](images/appointments.png)
+<img width="420" height="458" alt="image" src="https://github.com/user-attachments/assets/9a0cb20a-a7ce-4b9d-8133-387b298f0cab" />
 
-### Calendar
-![Calendar](images/calendar.png)
 
 ---
 
