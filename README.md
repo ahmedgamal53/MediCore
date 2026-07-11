@@ -88,6 +88,19 @@
 <b>Schedule</b><br>
 <img src="https://github.com/user-attachments/assets/1ea2d718-e04d-461e-ab97-b5e9be93c239" width="320" height="auto"/>
 </td>
+
+  <td align="center" colspan="3">
+<b>Patient Information</b><br>
+ <img width="1919" height="944" alt="image" src="https://github.com/user-attachments/assets/f35466d7-d89d-491a-aff0-58052ff45bfb" />
+<img width="1919" height="884" alt="image" src="https://github.com/user-attachments/assets/a02116e6-234a-4642-9d5e-9ee5cd181a38" />
+
+</td>
+
+<td align="center" colspan="3">
+<b>Patient Visit</b><br>
+<img width="1915" height="937" alt="image" src="https://github.com/user-attachments/assets/28489056-3f68-4134-9307-251a207fc7fa" />
+</td>
+
 </tr>
 </table>
 
