@@ -64,43 +64,49 @@
 </table>
 
 ### Doctor Dashboard
-
 <table>
 <tr>
 <td align="center">
 <b>Dashboard</b><br>
-<img src="https://github.com/user-attachments/assets/390c37f5-5510-4f6a-bb34-50f88fe14fff" width="320" height="auto"/>
+<img src="https://github.com/user-attachments/assets/390c37f5-5510-4f6a-bb34-50f88fe14fff" width="320"/>
 </td>
 
 <td align="center">
 <b>Patients</b><br>
-<img src="https://github.com/user-attachments/assets/88e1d887-427d-4b80-9de1-7a12a2cd7b87" width="320" height="auto"/>
+<img src="https://github.com/user-attachments/assets/88e1d887-427d-4b80-9de1-7a12a2cd7b87" width="320"/>
 </td>
 
 <td align="center">
 <b>Patient Visit</b><br>
-<img src="https://github.com/user-attachments/assets/266559f6-cddf-473d-8386-113b885d1ec6" width="320" height="auto"/>
+<img src="https://github.com/user-attachments/assets/266559f6-cddf-473d-8386-113b885d1ec6" width="320"/>
 </td>
 </tr>
 
 <tr>
-<td align="center" colspan="3">
+<td align="center">
 <b>Schedule</b><br>
-<img src="https://github.com/user-attachments/assets/1ea2d718-e04d-461e-ab97-b5e9be93c239" width="320" height="auto"/>
+<img src="https://github.com/user-attachments/assets/1ea2d718-e04d-461e-ab97-b5e9be93c239" width="320"/>
 </td>
 
-  <td align="center" colspan="3">
+<td align="center">
 <b>Patient Information</b><br>
- <img width="1919" height="944" alt="image" src="https://github.com/user-attachments/assets/f35466d7-d89d-491a-aff0-58052ff45bfb" />
-<img width="1919" height="884" alt="image" src="https://github.com/user-attachments/assets/a02116e6-234a-4642-9d5e-9ee5cd181a38" />
-
+<img src="https://github.com/user-attachments/assets/f35466d7-d89d-491a-aff0-58052ff45bfb" width="320"/>
 </td>
 
-<td align="center" colspan="3">
-<b>Patient Visit</b><br>
-<img width="1915" height="937" alt="image" src="https://github.com/user-attachments/assets/28489056-3f68-4134-9307-251a207fc7fa" />
+<td align="center">
+<b>Patient Details</b><br>
+<img src="https://github.com/user-attachments/assets/a02116e6-234a-4642-9d5e-9ee5cd181a38" width="320"/>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<b>Visit History</b><br>
+<img src="https://github.com/user-attachments/assets/28489056-3f68-4134-9307-251a207fc7fa" width="320"/>
 </td>
 
+<td></td>
+<td></td>
 </tr>
 </table>
 
