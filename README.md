@@ -22,8 +22,33 @@
 
 ---
 
+## Screenshots
+
+> Placeholders — to be replaced with actual application screenshots.
+
+### Admin Dashboard
+![Admin Dashboard](images/admin-dashboard.png)
+
+### Doctor Dashboard
+![Doctor Dashboard](images/doctor-dashboard.png)
+
+### Patient Dashboard
+![Patient Dashboard](images/patient-dashboard.png)
+
+### Login
+![Login](images/login.png)
+
+### Appointments
+![Appointments](images/appointments.png)
+
+### Calendar
+![Calendar](images/calendar.png)
+
+---
+
 ## Table of Contents
 
+- [Screenshots](#screenshots)
 - [Overview](#overview)
 - [Tech Stack](#tech-stack)
 - [System Architecture](#system-architecture)
@@ -36,7 +61,6 @@
 - [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Environment Variables](#environment-variables)
-- [Screenshots](#screenshots)
 - [Future Improvements](#future-improvements)
 - [Why This Project?](#why-this-project)
 
@@ -291,30 +315,6 @@ VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
 
 > **Note:** Never commit `.env` to version control. Use `.env.example` as a template for collaborators.
-
----
-
-## Screenshots
-
-> Placeholders — to be replaced with actual application screenshots.
-
-### Admin Dashboard
-![Admin Dashboard](images/admin-dashboard.png)
-
-### Doctor Dashboard
-![Doctor Dashboard](images/doctor-dashboard.png)
-
-### Patient Dashboard
-![Patient Dashboard](images/patient-dashboard.png)
-
-### Login
-![Login](images/login.png)
-
-### Appointments
-![Appointments](images/appointments.png)
-
-### Calendar
-![Calendar](images/calendar.png)
 
 ---
 
