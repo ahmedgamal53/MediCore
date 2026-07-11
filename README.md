@@ -283,22 +283,22 @@ This dual-layer approach (client-side UX gating + server-side RLS enforcement) i
 - Protected routing with role-aware redirects
 
 ### Admin
-- Full CRUD on doctor and patient records
-- Account creation and role assignment
-- Appointment monitoring across the entire clinic
-- Dashboard analytics (appointment volume, status breakdown, patient/doctor counts)
+- Manage doctors
+- Manage patients
+- Manage appointments
+- Dashboard analytics
 
 ### Doctor
-- Personalized appointment queue
-- Patient visit workflow with a defined status state machine
-- Structured visit documentation (diagnosis, medications, notes)
-- Daily schedule view
+- Manage schedule
+- View appointments
+- Update visit records
+- Manage patient history
 
 ### Patient
-- Self-service registration
-- Doctor discovery and profile browsing
-- Appointment booking with conflict prevention
-- Appointment history and cancellation
+- Book appointments
+- View medical history
+- Manage profile
+- Track appointments
 
 ---
 
