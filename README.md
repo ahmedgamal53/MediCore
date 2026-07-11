@@ -113,7 +113,44 @@
 
 
 ### Patient Dashboard
-![Patient Dashboard](images/patient-dashboard.png)
+
+<table>
+<tr>
+<td align="center">
+<b>Home</b><br>
+<img src="https://github.com/user-attachments/assets/bf174c61-eab1-48cb-bdbb-cad366def1a5" width="420"/>
+</td>
+
+<td align="center">
+<b>Doctors</b><br>
+<img src="https://github.com/user-attachments/assets/3bd61c1c-2eb2-4f06-913f-ad7cd348c37e" width="420"/>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<b>Appointments</b><br>
+<img src="https://github.com/user-attachments/assets/58bdbc1c-fbf4-4aa1-acd6-f0be0094a00d" width="420"/>
+</td>
+
+<td align="center">
+<b>Schedule</b><br>
+<img src="https://github.com/user-attachments/assets/39352dbb-86c9-4b21-9f3f-95ed6a770538" width="420"/>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<b>Medical History</b><br>
+<img src="https://github.com/user-attachments/assets/ae32f76b-9ab4-4e78-a2d3-02301363a06f" width="420"/>
+</td>
+
+<td align="center">
+<b>Medical Details</b><br>
+<img src="https://github.com/user-attachments/assets/02738442-a4e8-453b-8b20-1c862b11437c" width="420"/>
+</td>
+</tr>
+</table>
 
 ### Login
 ![Login](images/login.png)
