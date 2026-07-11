@@ -12,9 +12,7 @@
   <img src="https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square" alt="License" />
 </p>
 
-<p align="center">
-  <img src="images/banner.png" alt="MediCore Banner" width="100%" />
-</p>
+
 
 <p align="center">
   <a href="https://medicore-2iq.pages.dev/"><strong>🔗 Live Demo</strong></a>
