@@ -26,7 +26,6 @@
 
 ## Admin Dashboard
 
-## 📸 Screenshots
 
 <table>
 <tr>
@@ -65,7 +64,34 @@
 </table>
 
 ### Doctor Dashboard
-![Doctor Dashboard](images/doctor-dashboard.png)
+
+<table>
+<tr>
+<td align="center">
+<b>Dashboard</b><br>
+<img src="https://github.com/user-attachments/assets/390c37f5-5510-4f6a-bb34-50f88fe14fff" width="320" height="auto"/>
+</td>
+
+<td align="center">
+<b>Patients</b><br>
+<img src="https://github.com/user-attachments/assets/88e1d887-427d-4b80-9de1-7a12a2cd7b87" width="320" height="auto"/>
+</td>
+
+<td align="center">
+<b>Patient Visit</b><br>
+<img src="https://github.com/user-attachments/assets/266559f6-cddf-473d-8386-113b885d1ec6" width="320" height="auto"/>
+</td>
+</tr>
+
+<tr>
+<td align="center" colspan="3">
+<b>Schedule</b><br>
+<img src="https://github.com/user-attachments/assets/1ea2d718-e04d-461e-ab97-b5e9be93c239" width="320" height="auto"/>
+</td>
+</tr>
+</table>
+
+
 
 ### Patient Dashboard
 ![Patient Dashboard](images/patient-dashboard.png)
