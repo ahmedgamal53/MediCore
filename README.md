@@ -18,6 +18,18 @@
   <a href="https://medicore-2iq.pages.dev/"><strong>🔗 Live Demo</strong></a>
 </p>
 
+## Demo Accounts
+
+Use the following demo accounts to explore the application without creating a new account.
+
+| Role | Email | Password |
+| :--- | :---- | :------: |
+| 👨‍💼 **Admin** | `testAdmin@gmail.com` | `123456789` |
+| 👨‍⚕️ **Doctor** | `testDoctor@gmail.com` | `123456789` |
+| 🧑‍🦽 **Patient** | `testPatient@gmail.com` | `123456789` |
+
+> **Note:** These accounts are provided for demonstration purposes only.
+
 ---
 
 ## Screenshots
