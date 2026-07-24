@@ -1,14 +1,14 @@
-import { useState, ChangeEvent, FormEvent} from "react";
-import { FaSearch } from "react-icons/fa";
+import { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { CiFilter } from "react-icons/ci";
 import { MdPersonAddAlt } from "react-icons/md";
+import { FaSearch } from "react-icons/fa";
 import { IoPersonOutline } from "react-icons/io5";
 import { IoKeyOutline } from "react-icons/io5";
 import Switch from '@mui/material/Switch';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import toast from "react-hot-toast";
-import React from "react";
 import { supabase } from "../../../supabaseClient";
 import { useDeletePatient,  usePatiens } from "../../../api/Patients";
 import { useQueryClient } from "@tanstack/react-query";
@@ -20,14 +20,14 @@ const {mutate:deletepatient}=useDeletePatient()
 
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("All");
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = useState(true);
   const [loading, setLoading] = useState(false);
   const {data:patients,isLoading}=usePatiens()
   const [showAddModal, setShowAddModal] = useState(false);
   
 const [isEditing, setIsEditing] = useState(false);
 
-const [selectedPatient, setSelectedPatient] = useState(null);
+const [selectedPatient, setSelectedPatient] = useState<any | null>(null);
 
   const [newPatient, setNewPatient] = useState({
     name: "",
@@ -42,7 +42,7 @@ const [selectedPatient, setSelectedPatient] = useState(null);
 
 const navigate=useNavigate()
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
  const value = event.target.checked;
 
   setChecked(value);
@@ -177,7 +177,7 @@ const handleEditPatient = async (e:FormEvent) => {
         gender: newPatient.gender,
         Blood_Type: newPatient.bloodType,
       })
-      .eq("id", selectedPatient.id);
+      .eq("id", selectedPatient?.id);
 
     if (patientError) throw patientError;
 
@@ -188,7 +188,7 @@ const handleEditPatient = async (e:FormEvent) => {
         full_name: newPatient.name,
         status: newPatient.accountStatus,
       })
-      .eq("id", selectedPatient.id);
+      .eq("id", selectedPatient?.id);
 
     if (profileError) throw profileError;
 

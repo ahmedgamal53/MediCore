@@ -18,7 +18,7 @@ export const useDoctors=()=>{
     })
 }
 
-export const useDoctorsDetails=(id)=>{
+export const useDoctorsDetails=(id:string)=>{
     return useQuery({
         queryKey:['doctors',id],
         queryFn:async ()=>{

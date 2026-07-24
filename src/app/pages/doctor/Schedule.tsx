@@ -5,6 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 // import timeGridPlugin from "@fullcalendar/timegrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 // // import interactionPlugin from "@fullcalendar/interaction";
+import interactionPlugin from "@fullcalendar/interaction";
 import { useAppointmentDoctorid } from "../../../api/appointments";
 
 
@@ -23,7 +24,7 @@ const events =
   appointments?.map((a) => {
     const start = new Date(`${a.appointment_date}T${a.appointment_time}`);
 
-    const end = new Date(start.getTime() + 30 * 60 * 1000); // +30 minutes
+    const end = new Date(start.getTime() + 30 * 60 * 1000); 
 
     return {
       title:
@@ -36,7 +37,7 @@ const events =
     };
   }) ?? [];
 
-  const handleDateClick = (info: any) => {
+  const handleDateClick = (info: { dateStr: unknown; }) => {
     // Placeholder: you could open a modal to create a new appointment.
     alert(`Clicked on ${info.dateStr}`);
   };
@@ -58,7 +59,7 @@ const events =
     <div className="p-6 bg-gray-50 min-h-screen">
       <div className="bg-white p-4 rounded-2xl border border-gray-200 shadow">
         <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin]}
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView="timeGridWeek"
           editable={true}
           selectable={true}

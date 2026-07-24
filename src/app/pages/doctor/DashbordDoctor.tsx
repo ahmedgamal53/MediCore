@@ -24,7 +24,6 @@ const DashbordDoctor = () => {
 
   const navigate = useNavigate();
 
-  console.log('appointments',appointments);
   
 
   // Compute KPI counts

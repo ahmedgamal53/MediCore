@@ -1,19 +1,19 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDoctorsDetails } from '../../../api/Doctors'
 import { RingLoader } from 'react-spinners'
-import { IoArrowBackCircle, IoBriefcaseOutline, IoCallOutline, IoMedkitOutline, IoPulseOutline, IoShieldCheckmarkOutline, IoCalendarOutline, IoTimeOutline, IoWaterOutline, IoDocumentTextOutline, IoPersonCircleOutline } from 'react-icons/io5'
+import { IoArrowBackCircle, IoBriefcaseOutline, IoCallOutline, IoMedkitOutline, IoPulseOutline, IoShieldCheckmarkOutline, IoCalendarOutline, IoTimeOutline, IoWaterOutline, IoDocumentTextOutline } from 'react-icons/io5'
 import {  useAppointmentDoctor } from '../../../api/appointments'
 import { useState } from 'react'
 
 const DoctorID = () => {
 const { id } = useParams<{ id: string }>();  
-  const {data:doctor,isLoading}=useDoctorsDetails(id)
+  const {data:doctor,isLoading}=useDoctorsDetails(id||'')
   const navigate = useNavigate();
 const [currentPage, setCurrentPage] = useState(1);
         
           const itemsPerPage = 5;
 
-            const {data:appointment}=useAppointmentDoctor(id)
+            const {data:appointment}=useAppointmentDoctor(id||'')
 console.log(appointment);
       if (isLoading) {
    return(
@@ -146,7 +146,7 @@ const typeStyles: Record<string, string> = {
 
               {appointment && appointment.length > 0 ? (
                 <div className="space-y-4">
-                  {paginatedVisits?.map((appt: any) => (
+                  {paginatedVisits?.map((appt) => (
                     <div
                       key={appt.id}
                       className="rounded-2xl border border-slate-200 p-5 hover:bg-emerald-50/40 hover:border-emerald-100 transition-all duration-300"

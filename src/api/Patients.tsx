@@ -19,7 +19,7 @@ export const usePatiens=()=>{
         }
     })
 }
-export const usePatientDetails=(id)=>{
+export const usePatientDetails=(id:string)=>{
     return useQuery({
         queryKey:['patients',id],
         queryFn:async ()=>{

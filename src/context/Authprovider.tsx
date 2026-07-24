@@ -1,29 +1,34 @@
 import {  type Session } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useRef, useState, type PropsWithChildren } from "react";
 import { supabase } from "../supabaseClient";
-type AuthData={
-    session:Session|null;
-loading:boolean;
-profile:null;
-isAdmin:boolean
-isPatient:boolean
-isDoctor:boolean
+type Profile = {
+  role?: "admin" | "patient" | "doctor"
+  [key: string]: unknown
 }
 
-const Authcontext=createContext<AuthData>({
-    session:null,
-    loading:true,
-    profile:null,
-  isAdmin:false,
-  isPatient:false,
-  isDoctor:false
+type AuthData = {
+  session: Session | null
+  loading: boolean
+  profile: Profile | null
+  isAdmin: boolean
+  isPatient: boolean
+  isDoctor: boolean
+}
+
+const Authcontext = createContext<AuthData>({
+  session: null,
+  loading: true,
+  profile: null,
+  isAdmin: false,
+  isPatient: false,
+  isDoctor: false,
 })
 
 
-const Authprovider = ({children}:PropsWithChildren) => {
-    const [session,setsession]=useState<Session|null>(null)
-    const [loading,setloading]=useState(true)
-    const [profile,setprofile]=useState(null)
+const Authprovider = ({children}: PropsWithChildren) => {
+  const [session, setsession] = useState<Session | null>(null)
+  const [loading, setloading] = useState(true)
+  const [profile, setprofile] = useState<Profile | null>(null)
 
       const initialized = useRef(false);
 

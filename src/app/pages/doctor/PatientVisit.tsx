@@ -98,6 +98,9 @@ return;
  }
     toast.success("completed successfully.");
       queryClient.invalidateQueries({queryKey:['appointments']})
+      setChiefComplaint('')
+      setnotes('')
+      setdiagnosis('')
   } catch (error) {
     console.log(error);
     
@@ -273,7 +276,7 @@ px-8 py-4 shadow-xl">
     <div className="w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-300 flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-cyan-200/50">
       {appointment.patients?.profiles?.full_name
         ?.split(" ")
-        .map((name) => name[0])
+        .map((name: string) => name[0])
         .join("")
         .slice(0, 2)
         .toUpperCase()}

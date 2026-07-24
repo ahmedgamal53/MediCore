@@ -5,7 +5,7 @@ import { supabase } from '../../../supabaseClient';
 import { useAuth } from '../../../context/Authprovider';
 import { RingLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
-import { useAppointment } from '../../../api/appointments';
+import { useAppointment, useAppointmentid } from '../../../api/appointments';
 import toast from 'react-hot-toast';
 import { usePatientDetails } from '../../../api/Patients';
 import { useQueryClient } from '@tanstack/react-query';
@@ -23,14 +23,21 @@ const DoctorsPatient = () => {
     const {session}=useAuth()
         
     const id=session?.user.id
-        const {data:PatientDetails}=usePatientDetails(id)
+        const {data:PatientDetails}=usePatientDetails(id||"")
 
     const {data:doctors}=useDoctors()
       const { data: schedule ,refetch} = useAppointment();
+      const { data: appointmentid } = useAppointmentid();
 
 
-    const check=schedule?.filter((s)=>s.doctor_id===selectedDoctor?.id &&s.appointment_date===appointmentDate)
+    const check=schedule?.filter((s)=>s.doctor_id===selectedDoctor?.id &&s.appointment_date===appointmentDate  )
   
+    const cansselid=check?.find((e)=>e.status==="Cancelled" &&e.appointment_time===appointmentTime)
+
+  const oneAppointment=appointmentid?.some((e)=> e.appointment_date===appointmentDate   &&e.appointment_time===appointmentTime &&e.status==="Scheduled")
+  
+  
+
 
   const formatTime = (time: string) => {
   const [hour, minute] = time.split(":").map(Number);
@@ -75,6 +82,10 @@ const handelConfirm= async()=>{
 
 
   await refetch();
+  if(oneAppointment){
+toast.error("You already have an appointment with another doctor at this time.");  
+  return
+  }
 
   if(check?.some((a)=>a.status==="Cancelled")){
     
@@ -87,7 +98,7 @@ const handelConfirm= async()=>{
         type:appointment,
         status:'Scheduled'
     })
-    .eq('id',id)
+    .eq('id',cansselid?.id)
     if(error){
       toast.error(error.message)
       setAppointmentTime(""); 
@@ -113,6 +124,7 @@ toast.success("Appointment booked successfully.");
    navigate('/schedule')
     return
   }
+
  
     const{error}= await supabase.from('appointments')
     .upsert({
@@ -126,6 +138,8 @@ toast.success("Appointment booked successfully.");
     })
        if(error ){
   toast.error("This appointment has just been booked by another user.");
+  console.log(error.message);
+  
   setAppointmentTime(""); 
   setLoading(false)
   return;  }
@@ -220,7 +234,7 @@ toast.success("Appointment booked successfully.");
                       <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#00E0D6] to-[#00A39C] flex items-center justify-center text-white font-semibold text-lg">
         {doctor?.profiles?.full_name
           ?.split(" ") //Array
-          .map((n) => n[0])
+          .map((n: string) => n[0])
           .join("")
           .slice(0, 2)}
       </div>
@@ -261,7 +275,7 @@ toast.success("Appointment booked successfully.");
           setSelectedDoctor(doctor);
           setShowModal(true);
         }}
-        disabled={doctor.currentstatus === "Off-Duty"}
+        disabled={doctor.currentstatus === "Off-Duty"||doctor.currentstatus === "Busy"}
       >
         Book Appointment
       </button>
@@ -295,7 +309,7 @@ toast.success("Appointment booked successfully.");
           <div className="w-15 h-15 rounded-full border border-white/30 bg-white/20 flex items-center justify-center text-gray-900 text-2xl font-semibold">
         {selectedDoctor?.profiles?.full_name
           ?.split(" ") //Array
-          .map((n) => n[0])
+          .map((n: string) => n[0])
           .join("")
           .slice(0, 2)}
       </div>
@@ -352,8 +366,8 @@ toast.success("Appointment booked successfully.");
           a.appointment_time === t &&
           a.status !=="Cancelled"
       );
-    console.log(check);
-    
+
+     
         
       return (
         <button

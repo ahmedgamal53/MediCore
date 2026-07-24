@@ -1,16 +1,29 @@
-import { useState, type ChangeEvent, type FormEvent, type JSXElementConstructor, type Key, type ReactElement, type ReactNode, type ReactPortal } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { FaSearch } from "react-icons/fa"
 import { CiFilter } from "react-icons/ci";
 import { MdPersonAddAlt } from "react-icons/md";
+import { useState } from "react";
 import { IoKeyOutline, IoPersonOutline } from "react-icons/io5";
-import { LuBriefcaseBusiness } from "react-icons/lu";
 import { supabase } from "../../../supabaseClient";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useDeleteDoctor, useDoctors } from "../../../api/Doctors";
 import { useNavigate } from "react-router-dom";
+import { LuBriefcaseBusiness } from "react-icons/lu";
 
-function Doctors() {
+interface Doctor { id: string; [key: string]: any }
+interface Doctors {
+  id: string;
+  phone: string;
+  specialty: string;
+  experience: number;
+  currentstatus: string;
+  profiles?: {
+    full_name: string;
+    email: string;
+  };
+}
+const Doctors = () => {
   const [status, setStatus] = useState("All");
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +33,7 @@ const{mutate:deleteDoctor}=useDeleteDoctor()
   // State for search input
   const [search, setSearch] = useState("");
 const [isEditing, setIsEditing] = useState(false);
-const [selecteddoctor, setselecteddoctor] = useState(null);
+const [selecteddoctor, setselecteddoctor] = useState<Doctor | null>(null);
   // State to control Add Doctor modal visibility
   const [showAddModal, setShowAddModal] = useState(false);
 
@@ -58,18 +71,18 @@ const [selecteddoctor, setselecteddoctor] = useState(null);
   };
 
 
-const handleEdit=(doctor)=>{
+const handleEdit=(doctor:Doctors)=>{
   setIsEditing(true)
   setselecteddoctor(doctor)
   setShowAddModal(true)
   setNewDoctor({
-    fullName:doctor.profiles?.full_name,
+    fullName:doctor.profiles?.full_name ??"",
     phone:doctor.phone,
     specialty:doctor.specialty,
     experience:doctor.experience,
     currentstatus:doctor.currentstatus,
     role:"doctor",
-    email:doctor.profiles?.email
+    email:doctor.profiles?.email??""
   })
 }
 
@@ -114,7 +127,7 @@ const handleEdit=(doctor)=>{
       }
     );
   if (error) {
-  alert(error.message);
+toast.error("This email has already been taken.");
   return;
 } else {
 toast.success("Doctor Created Successfully");}
@@ -161,7 +174,7 @@ const {error}=await supabase
   phone:newDoctor.phone,
   currentstatus:newDoctor.currentstatus
 })
-.eq('id',selecteddoctor?.id)
+.eq('id', selecteddoctor?.id ?? '')
 if(error)throw error
 
 
@@ -170,7 +183,7 @@ if(error)throw error
       .update({
         full_name: newDoctor.fullName,
       })
-      .eq("id", selecteddoctor.id);
+      .eq("id", selecteddoctor?.id ?? "")
 
     if (profileError) throw profileError;
         toast.success("Doctor Updated Successfully")
@@ -506,15 +519,15 @@ if(error)throw error
 
                 <td className="px-4 py-4">
                   <span
-                    className={`px-3 py-1 rounded-full font-semibold text-[12px] ${
-                      doctor.currentstatus === "Available"
-                        ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                        : doctor.currentstatus === "Busy"
-                        ? "bg-teal-50 text-teal-700 border border-teal-100"
-                        : doctor.currentstatus === "Off-Duty"
-                        ? "bg-slate-100 text-slate-500 border border-slate-200"
-                        : ""
-                    }`}
+                className={`px-3 py-1 rounded-full font-semibold text-[12px] ${
+  doctor.currentstatus === "Available"
+    ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+    : doctor.currentstatus === "Busy"
+    ? "bg-amber-50 text-amber-700 border border-amber-100"
+    : doctor.currentstatus === "Off-Duty"
+    ? "bg-slate-100 text-slate-500 border border-slate-200"
+    : ""
+}`}
                   >
                     {doctor.currentstatus}
                   </span>
@@ -562,6 +575,9 @@ if(error)throw error
 </div>
     </div>
   )
+
+  
 }
+
 
 export default Doctors

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, type JSX } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePatiens } from "../../../api/Patients";
 import { useDoctors } from "../../../api/Doctors";
@@ -50,7 +50,6 @@ console.log('recentactivity',recentactivity);
     todaysAppointments,
     recentAppointments,
     recentPatients,
-    activityTimeline,
   } = useMemo(() => {
     const totalPatients = patients?.length ?? 0;
     const totalDoctors = doctors?.length ?? 0;
@@ -68,7 +67,6 @@ console.log('recentactivity',recentactivity);
       })
       .slice(0, 5);
 
-      console.log(patients);
       
     // Recent patients – newest first (use created_at if available)
     const recentPatients = (patients ?? [])
@@ -408,7 +406,7 @@ const renderActivity =(act:any)=>{
                     </tr>
                   </thead>
                   <tbody>
-                    {recentAppointments.map((appt: any) => {
+                    {recentAppointments.map((appt) => {
                       const status = appt.status ?? "-";
                       const statusColor =
                         status === "Scheduled"
@@ -472,7 +470,7 @@ const renderActivity =(act:any)=>{
               </div>
             ) : recentPatients.length > 0 ? (
               <ul className="space-y-3">
-                {recentPatients.map((p: any) => (
+                {recentPatients.map((p) => (
                   <li
                     key={p.id}
                     className="flex justify-between items-center rounded-2xl border border-slate-200 bg-white p-3 hover:-translate-y-0.5 hover:shadow-md transition-all"

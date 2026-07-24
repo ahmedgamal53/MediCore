@@ -1,8 +1,8 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient, Query } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../../../supabaseClient";
-import { useDeleteAppointment, useuseAppointmentid } from "../../../api/appointments";
+import {  useuseAppointmentid } from "../../../api/appointments";
 import toast from "react-hot-toast";
 import { Loader2, Save } from "lucide-react";
 
@@ -33,7 +33,7 @@ const [loading,setloading]=useState(false)
     isLoading,
     isError,
     error,
-  } = useuseAppointmentid(id)
+  } = useuseAppointmentid(id ||'')
   console.log('appointment',appointment);
   
 
@@ -154,9 +154,6 @@ toast.success("Changes saved successfully.");
   const handelCompleted=async()=>{
 
   try {
-
-
-
     const {error}=await supabase.from('appointments')
     .update({
       status:'completed'
@@ -191,7 +188,7 @@ const paginatedVisits = previousVisits?.slice(
       <div className="flex items-center justify-between bg-white p-4 rounded-xl shadow">
    <button
   onClick={() => navigate("/patient")}
-  className="inline-flex items-center cursor-pointer gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:-translate-x-1 hover:border-cyan-300 hover:text-cyan-600 hover:shadow-md active:scale-95"
+  className="inline-flex items-center cursor-pointer gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition-all duration-200 hover:-translate-x-1 hover:shadow-md active:scale-95"
 >
   <span className="text-lg">←</span>
   Back to Patients
@@ -313,8 +310,7 @@ const paginatedVisits = previousVisits?.slice(
 
       {/* Chief Complaint */}
 <div >
-{
-  appointment?.map((a)=>(
+
     <div className="space-y-6">
         {/* Chief Complaint */}
   <section className="rounded-2xl bg-white p-6 shadow-sm">
@@ -370,8 +366,7 @@ const paginatedVisits = previousVisits?.slice(
     />
   </section>
     </div>
-  ))
-}
+  
 </div>
 
       {/* Previous Visits */}
@@ -414,7 +409,7 @@ const paginatedVisits = previousVisits?.slice(
         </thead>
 
         <tbody>
-          {paginatedVisits?.map((a: any) => (
+          {paginatedVisits?.map((a) => (
             <tr
               key={a.id}
               className="border-t border-slate-100 hover:bg-slate-50/70 transition-colors"

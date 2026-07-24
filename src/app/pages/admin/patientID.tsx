@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { IoArrowBackCircle, IoCallOutline, IoCalendarOutline, IoMaleFemaleOutline, IoWaterOutline, IoPulseOutline, IoShieldCheckmarkOutline, IoTimeOutline, IoMedkitOutline, IoDocumentTextOutline, IoPersonCircleOutline } from "react-icons/io5";
+import { IoArrowBackCircle, IoCallOutline, IoCalendarOutline, IoMaleFemaleOutline, IoWaterOutline, IoPulseOutline, IoShieldCheckmarkOutline, IoTimeOutline, IoMedkitOutline, IoDocumentTextOutline } from "react-icons/io5";
 import { usePatientDetails } from "../../../api/Patients";
 import { RingLoader } from "react-spinners";
 import { useAppointmentPatient } from "../../../api/appointments";
@@ -14,7 +14,7 @@ const PatientDetail = () => {
 const [currentPage, setCurrentPage] = useState(1);
         
           const itemsPerPage = 5;
-            const {data:appointmentPatient}=useAppointmentPatient(id)
+            const {data:appointmentPatient}=useAppointmentPatient(id||'')
 
 console.log('appointmentPatient',appointmentPatient);
 
@@ -256,6 +256,7 @@ console.log('appointmentPatient',appointmentPatient);
               No appointments found
             </div>
           )}
+          
                <div className="flex flex-col gap-4 border-t border-slate-100 bg-slate-50/50 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
   <div>
     <p className="text-sm font-medium text-slate-700">
