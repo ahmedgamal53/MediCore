@@ -102,7 +102,7 @@ return;
   try {
     setloading(true)
 
-    if(appointment?.[0]?.clinical_notes===clinicalNotes&&appointment?.[0]?.diagnosis===diagnosis&&appointment?.[0]?.chief_complaint===chiefComplaint){
+    if(appointment?.[0]?.clinical_notes===clinicalNotes.trim()&&appointment?.[0]?.diagnosis===diagnosis.trim()&&appointment?.[0]?.chief_complaint===chiefComplaint.trim()){
 toast.error("The data is already up to date.");
       setloading(false)
       return
@@ -366,6 +366,26 @@ const paginatedVisits = previousVisits?.slice(
     />
   </section>
     </div>
+
+   <div className="flex items-center justify-center">
+       <button
+    onClick={handleSave}
+    disabled={!(clinicalNotes.trim()&&diagnosis.trim()&&chiefComplaint.trim())}
+    className="flex mt-5  items-center gap-2 rounded-2xl cursor-pointer bg-gradient-to-r from-cyan-500 to-sky-500 px-7 py-3 text-sm font-semibold text-white transition-all duration-300   active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+  >
+    {loading ? (
+      <>
+        <Loader2 className="h-4 w-4 animate-spin" />
+        Saving...
+      </>
+    ) : (
+      <>
+        <Save className="h-4 w-4" />
+        Save Changes
+      </>
+    )}
+  </button>
+   </div>
   
 </div>
 
@@ -495,7 +515,7 @@ const paginatedVisits = previousVisits?.slice(
     <button
       disabled={currentPage === 1}
       onClick={() => setCurrentPage((p) => p - 1)}
-      className="flex h-11 items-center rounded-2xl border border-slate-200 bg-white px-5 text-sm font-medium text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-cyan-300 hover:shadow-md disabled:pointer-events-none disabled:opacity-40"
+      className="flex h-11 items-center rounded-2xl border border-slate-200 bg-white px-5 text-sm font-medium text-slate-700 shadow-sm transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-40"
     >
       ← Previous
     </button>
@@ -520,7 +540,7 @@ const paginatedVisits = previousVisits?.slice(
     <button
       disabled={currentPage === totalPages}
       onClick={() => setCurrentPage((p) => p + 1)}
-      className="flex h-11 items-center rounded-2xl border border-slate-200 bg-white px-5 text-sm font-medium text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-cyan-300 hover:shadow-md disabled:pointer-events-none disabled:opacity-40"
+      className="flex h-11 items-center rounded-2xl border border-slate-200 bg-white px-5 text-sm font-medium text-slate-700 shadow-sm transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-40"
     >
       Next →
     </button>
@@ -529,25 +549,7 @@ const paginatedVisits = previousVisits?.slice(
 
       {/* Bottom actions */}
    <div className="mt-8 flex items-center justify-center  border-t border-slate-100 pt-6">
-  <button
-    onClick={handleSave}
-    disabled={!(clinicalNotes.trim()&&diagnosis.trim()&&chiefComplaint.trim())}
-    className="inline-flex items-center gap-2 rounded-2xl cursor-pointer bg-gradient-to-r from-cyan-500 to-sky-500 px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_25px_rgba(14,165,233,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(14,165,233,0.45)] active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
-  >
-    {loading ? (
-      <>
-        <Loader2 className="h-4 w-4 animate-spin" />
-        Saving...
-      </>
-    ) : (
-      <>
-        <Save className="h-4 w-4" />
-        Save Changes
-      </>
-    )}
 
-    
-  </button>
 </div>
     </div>
   );
