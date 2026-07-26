@@ -152,7 +152,7 @@ const Patient = () => {
     <button
       disabled={currentPage === 1}
       onClick={() => setCurrentPage((p) => p - 1)}
-      className="flex h-11 items-center rounded-2xl border border-slate-200 bg-white px-5 text-sm font-medium text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-cyan-300 hover:shadow-md disabled:pointer-events-none disabled:opacity-40"
+      className="flex h-11 items-center rounded-2xl border border-slate-200 bg-white px-5 text-sm font-medium text-slate-700 shadow-sm transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-40"
     >
       ← Previous
     </button>
@@ -177,7 +177,7 @@ const Patient = () => {
     <button
       disabled={currentPage === totalPages}
       onClick={() => setCurrentPage((p) => p + 1)}
-      className="flex h-11 items-center rounded-2xl border border-slate-200 bg-white px-5 text-sm font-medium text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-cyan-300 hover:shadow-md disabled:pointer-events-none disabled:opacity-40"
+      className="flex h-11 items-center rounded-2xl border border-slate-200 bg-white px-5 text-sm font-medium text-slate-700 shadow-sm transition-all cursor-pointer disabled:pointer-events-none disabled:opacity-40"
     >
       Next →
     </button>

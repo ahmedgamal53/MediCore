@@ -25,9 +25,7 @@ const [loading,setloading]=useState(false)
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 5;
-  // -------------------------------------------------------
-  // Load the selected appointment (includes patient profile data)
-  // -------------------------------------------------------
+
   const {
     data: appointment,
     isLoading,
@@ -45,9 +43,7 @@ const [loading,setloading]=useState(false)
       setChiefComplaint(appointment[0]?.chief_complaint||"")
     }
   },[appointment])
-  // -------------------------------------------------------
-  // Load previous visits for the same patient (excluding current)
-  // -------------------------------------------------------
+
   const patientId = appointment?.[0]?.patient_id;
   const {
     data: previousVisits,
@@ -212,7 +208,7 @@ const paginatedVisits = previousVisits?.slice(
   ) && (
     <button
       onClick={handelCompleted}
-      className="inline-flex cursor-pointer items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_25px_rgba(34,197,94,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(34,197,94,0.4)] active:scale-95"
+      className="inline-flex cursor-pointer items-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-500 px-5 py-3 text-sm font-semibold text-white  transition-all duration-300  active:scale-95"
     >
       ✓ Complete Visit
     </button>
@@ -223,7 +219,7 @@ const paginatedVisits = previousVisits?.slice(
   ) && (
     <button
       onClick={handleCancel}
-      className="inline-flex cursor-pointer items-center gap-2 rounded-2xl bg-gradient-to-r from-red-500 to-rose-500 px-5 py-3 text-sm font-semibold text-white shadow-[0_8px_25px_rgba(239,68,68,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(239,68,68,0.4)] active:scale-95"
+      className="inline-flex cursor-pointer items-center gap-2 rounded-2xl bg-gradient-to-r from-red-500 to-rose-500 px-5 py-3 text-sm font-semibold text-white  transition-all duration-300 active:scale-95"
     >
       ✕ Cancel Appointment
     </button>
