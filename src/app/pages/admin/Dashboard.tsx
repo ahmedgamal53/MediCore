@@ -54,7 +54,7 @@ console.log('recentactivity',recentactivity);
     const totalPatients = patients?.length ?? 0;
     const totalDoctors = doctors?.length ?? 0;
     const totalAppointments = appointments?.length ?? 0;
-    const todaysAppointments = appointments?.filter((a) => a.appointment_date === today).length ?? 0;
+    const todaysAppointments = appointments?.filter((a) => a.appointment_date === today &&a.status !=="Cancelled").length ?? 0;
 
     // Recent appointments – newest first, limited to 5
     const now=new Date()
@@ -78,7 +78,6 @@ console.log('recentactivity',recentactivity);
       })
       .slice(0, 5);
 
-    // Build a simple activity timeline mixing recent appointments and patient adds
     const activity: Array<{ timestamp: number; icon: JSX.Element; text: string }> = [];
     recentAppointments.forEach((appt) => {
       const ts = new Date(`${appt.appointment_date}T${appt.appointment_time}`).getTime();
@@ -130,7 +129,9 @@ console.log('recentactivity',recentactivity);
       const key = d.toISOString().split("T")[0];
       map[key] = 0;
     }
-    appointments.forEach((a) => {
+     appointments
+    .filter((a) => a.status !== "Cancelled")
+    .forEach((a) => {
       const key = a.appointment_date;
       if (key && map[key] !== undefined) {
         map[key] += 1;
@@ -152,7 +153,7 @@ const donutData = useMemo(() => {
     if (s === "completed") categories.Completed += 1;
     else if (s === "scheduled") categories.Scheduled += 1;
     else if (s === "cancelled") categories.Cancelled += 1;
-    else if (s === "no show") categories["In Progress"] += 1;
+    else if (s === "In Progress") categories["In Progress"] += 1;
   });
   return Object.entries(categories).map(([name, value]) => ({ name, value }));
 }, [appointments]);

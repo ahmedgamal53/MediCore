@@ -30,9 +30,16 @@ const DoctorsPatient = () => {
       const { data: appointmentid } = useAppointmentid();
 
 
-    const check=schedule?.filter((s)=>s.doctor_id===selectedDoctor?.id &&s.appointment_date===appointmentDate  )
-  
-    const cansselid=check?.find((e)=>e.status==="Cancelled" &&e.appointment_time===appointmentTime)
+    const check=schedule?.filter((s)=>s.doctor_id===selectedDoctor?.id &&s.appointment_date===appointmentDate )
+
+    // const cansselid=check?.find((e)=>e.status==="Cancelled" &&e.appointment_time===appointmentTime)
+    const checkCancelled=schedule?.find((s)=>s.doctor_id===selectedDoctor?.id &&s.appointment_date===appointmentDate&&s.appointment_time===appointmentTime )
+
+console.log('checkCancelled',checkCancelled?.status==="Cancelled");
+
+
+// console.log(checkCancelled?.some((a)=>a.status==="Cancelled"));
+
 
   const oneAppointment=appointmentid?.some((e)=> e.appointment_date===appointmentDate   &&e.appointment_time===appointmentTime &&e.status==="Scheduled")
   
@@ -87,7 +94,7 @@ toast.error("You already have an appointment with another doctor at this time.")
   return
   }
 
-  if(check?.some((a)=>a.status==="Cancelled")){
+  if(checkCancelled?.status==="Cancelled"){
     
     const {error} =await supabase.from('appointments')
     .update({
@@ -98,9 +105,12 @@ toast.error("You already have an appointment with another doctor at this time.")
         type:appointment,
         status:'Scheduled'
     })
-    .eq('id',cansselid?.id)
+    .eq('id', checkCancelled?.id)
     if(error){
       toast.error(error.message)
+      console.log(error.message);
+      console.log(error);
+      
       setAppointmentTime(""); 
   setLoading(false)
   return; 

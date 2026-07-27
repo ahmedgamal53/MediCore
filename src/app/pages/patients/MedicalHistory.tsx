@@ -94,14 +94,12 @@ const MedicalHistory = () => {
 
   const patient = appointments?.[0]?.patients
 
-  // Most recent first
-  const sorted = appointments
-    ? [...appointments].sort(
+ 
+  const sorted=appointments?.filter((a)=>a.status ==="Cancelled"|| a.status ==="completed").sort(
         (a, b) =>
           new Date(`${b.appointment_date}T${b.appointment_time}`).getTime() -
           new Date(`${a.appointment_date}T${a.appointment_time}`).getTime()
-      )
-    : []
+      ) ??[]
 
 const filtered=sorted.filter((a)=>{
     return a.doctors?.profiles?.full_name?.toLowerCase().includes(search.toLowerCase()) || a.booking_id.split("-")[2].includes(search)
